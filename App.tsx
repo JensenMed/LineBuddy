@@ -1,6 +1,7 @@
 import React from 'react';
 import Component from './src/Component';
 import {View} from 'react-native';
+import StackComponent from './src/StackComponent';
 
 /**
  * 
@@ -9,7 +10,7 @@ import {View} from 'react-native';
 function App(){
   return (
     <View>
-      <Component/>
+      <StackComponent/>
     </View>
   );
 }
