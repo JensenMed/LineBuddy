@@ -10,7 +10,7 @@ import StackComponent from './src/StackComponent';
 function App(){
   return (
     <View>
-      <StackComponent/>
+      <Component/>
     </View>
   );
 }

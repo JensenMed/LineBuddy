@@ -4,7 +4,10 @@ module.exports = {
   theme: {
     extend: {
       colors:{
-        'LineBuddyBlue': '#5CE1E6'
+        'LineBuddyBlue': '#5CE1E6',
+        'LineBuddyGray': '#50514F',
+        'LineBuddyPink': '#FF53BD',
+
       },
       fontFamily: {
         'sans': ['ui-sans-serif', 'system-ui',],

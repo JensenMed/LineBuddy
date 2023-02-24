@@ -5,10 +5,11 @@ import images from '../components/images';
 // import { StackNavigationProp } from '@react-navigation/stack';
 // import { useNavigation } from '@react-navigation/native';
 // import type { NativeStackScreenProps } from '@react-navigation/native-stack'
-// import { StackParamList } from '../StackComponent';
-// import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { StackParamList } from '../StackComponent';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 // import { NavigationContainer } from '@react-navigation/native';
-// import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/core';
 
 // type StackParamList = {
 //   Home: { foo: string, onBar: () => void }
@@ -20,10 +21,10 @@ import images from '../components/images';
 ;
 
 
-// type Props = {
-//   navigation: NativeStackNavigationProp<StackParamList, 'Home'>;
-//   navigate: any;
-// };
+type Props = {
+  navigation: NativeStackNavigationProp<StackParamList, 'Home'>;
+  navigate: any;
+};
 /**
  * Home component for LineBuddy Welcome page
  * @returns Home component
