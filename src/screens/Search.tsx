@@ -210,6 +210,20 @@ const Search = () => {
       currentLocation={true}
       currentLocationLabel='Current location'
     /> */}
+
+  <GooglePlacesAutocomplete
+        placeholder='Search'
+        onPress={(data, details = null) => {
+          // 'details' is provided when fetchDetails = true
+          console.log(data, details);
+        }}
+        query={{
+          key: 'YOUR API KEY',
+          language: 'en',
+        }}
+        currentLocation={true}
+        currentLocationLabel='Current location'
+      />
     <View className = 'h-40 justify-center top-20'>
       <Button title='press me' onPress={requestCameraPermission}></Button>
 
