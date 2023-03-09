@@ -63,4 +63,4 @@ yarn-error.log
 .metro-health-check*
 
 # Android files
-android/app/src/main/AndroidManifest.xml
+/android/app/src/main/AndroidManifest.xml
