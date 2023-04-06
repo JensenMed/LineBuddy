@@ -4,7 +4,8 @@
 
 # Android files
 android/app/src/main/AndroidManifest.xml
-
+#api keys
+.env
 # Xcode
 #
 build/

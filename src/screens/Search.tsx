@@ -1,255 +1,294 @@
 import React, {useEffect, useState, useRef} from 'react'
-import {StyleSheet, Text, View, PermissionsAndroid, Button, Platform, Alert} from 'react-native';
-
-
+import {StyleSheet, Text, View, PermissionsAndroid, Button, Platform, Alert, SafeAreaView, TouchableOpacity} from 'react-native';
+// import REACT_APP_API_KEY from '.env'
+import axios from 'axios';
+import Autocomplete from 'react-native-autocomplete-input'
+// import Placesearch from 'react-native-placesearch';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 // import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import Geolocation from 'react-native-geolocation-service';
+// import { TouchableOpacity } from 'react-native-gesture-handler';
 // import Geolocation from '@react-native-community/geolocation';
+import Triangle from 'react-native-triangle';
+
+// interface nearbyPlacesNames ={
+//   nearbyPlacesNames: string[];
+// }
+
+// type 
+
 
 const Search = () => {
+  // const latitude = 37.773972;
+  // const longitude = -122.431297;
+  let radius = 50000;
 
-  //init geolocation cordinates
-  const[location, setLocation] = useState();
 
-  //Creates Map
-  const initMap = () => {
-    // const 
-  }
+  // const url =
+  // "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longitude + "&radius=" + radius + "&key=" + "AIzaSyBK8hTEOjILN7q70ARVrHMIflOXHSJs1J4"
 
-  // useEffect(() => {
-  //   if (hasLocationPermission) {
-  //     Geolocation.getCurrentPosition(
-  //         (position) => {
-  //           console.log(position);
-  //         },
-  //         (error) => {
-  //           // See error code charts below.
-  //           console.log(error.code, error.message);
-  //         },
-  //         { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-  //     );
-  //   }
-  // })
-  // console.log(Geolocation.getCurrentPosition)
+
+
+
+
+
+
+
+
+  //Users latitude information
+  const[userLatitude, setuserLatitude] = useState();
+  //Users longitude information
+  const[userLongitude, setUserLongitude] = useState();
+  // Nearby places objects
+  let nearbyPlacesObjs = [];
+  // let nearbyPlacesNames = [];
+  // Nearby places object names used for search
+  let nearbyPlacesNames: never[] = [];
+  console.log(process.env.REACT_APP_API_KEY);
+
   
-  // const requestCameraPermission = async () => {
-  //   try {
-  //     const granted = await PermissionsAndroid.request(
-  //       PermissionsAndroid.PERMISSIONS.hasLocationPermission,
-  //       {
-  //         title: 'Cool Photo App Camera Permission',
-  //         message:
-  //           'Cool Photo App needs access to your camera ' +
-  //           'so you can take awesome pictures.',
-  //         buttonNeutral: 'Ask Me Later',
-  //         buttonNegative: 'Cancel',
-  //         buttonPositive: 'OK',
-  //       },
-  //     );
-  //     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-  //       console.log('You can use the camera');
-  //     } else {
-  //       console.log('Camera permission denied');
-  //     }
-  //   } catch (err) {
-  //     console.warn(err);
-  //   }
-  // }
+  const[mapOpened, setMapOpened] = useState(false);
+  const [filteredPlaces, setFilteredPlaces] = useState([]);
+  const [selectedValue, setSelectedValue] = useState({});
 
-  // useEffect(() => {
-    
-
-  // })
-
-  const requestLocationPermission = async () => {
-
-    // if (Platform.OS === 'ios') {
-    //   Geolocation.setRNConfiguration({
-    //     authorizationLevel: 'whenInUse'
-    //   })
-
-    //   Geolocation.requestAuthorization()
-    //   // IOS permission request does not offer a callback :/
-    //   return null
-    // } else if (Platform.OS === 'android') {
-    //   try {
-    //     const granted = await PermissionsAndroid.request(
-    //       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
-    //     )
-    //     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-    //       return true
-    //     } else {
-    //       return false
-    //     }
-    //   }catch(e){
-    //     console.log("kdskdjsj")
-    //   }
-    // Geolocation.requestAuthorization()
-  
-
-    // Geolocation.getCurrentPosition(info => console.log(info));
-    // if(Platform.OS == 'ios'){
-    //   console.log('djsdjks')
-    // }else if(Platform.OS == 'android'){
-    //   console.log('android')
-    // }
-  }
-
-  // if (hasLocationPermission) {
-    // Geolocation.getCurrentPosition(
-    //     (position) => {
-    //       console.log(position);
-    //     },
-    //     (error) => {
-    //       // See error code charts below.
-    //       console.log(error.code, error.message);
-    //     },
-    //     { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-    // );
-  // }
-
-  // useEffect(() => {
-    // Geolocation.requestAuthorization()
-  //   Geolocation.getCurrentPosition(
-  //     (position) => {
-  //       console.log(position);
-  //     },
-  //     (error) => {
-  //       // See error code charts below.
-  //       console.log(error.code, error.message);
-  //     },
-  //     { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-  // );
-  // })
-
-
-  const requestCameraPermission = async () => {
-
-    // check permissions for Android devices
-    if(Platform.OS == 'android'){
-
+  const requestPermissions = async () => {
+    // Check permissions for Android devices
+    if (Platform.OS == 'android') {
       try {
+        // Checks if permissions for geolocation are granted
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
         );
-
+        // If permissions are granted then grab users latitude and longitude
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
           Geolocation.getCurrentPosition(
-            (position) => {
-              console.log(position);
+            position => {
+              // Sets the latitude and longitude
+              // console.log(position.coords.latitude)
+              setuserLatitude(position.coords.latitude);
+              setUserLongitude(position.coords.longitude);
             },
-            (error) => {
-              // See error code charts below.
+            error => {
+              // Permission was granted but there was an error retreiving data
               console.log(error.code, error.message);
             },
-            { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-        );
-          
+            // High accuracy on Android geolocation services enabled
+            // {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+          );
+          return true;
         } else {
-          console.log('Camera permission denied');
+          // Permission denied
+          console.log('Location permissions denied');
+          return false;
         }
       } catch (e) {
-        console.log("Error: " + e);
+        // There was an error requesting
+        console.log('Error: ' + e);
+        return false;
       }
-
     }
-    // check permissions on IOS devices
-    if(Platform.OS == 'ios'){
-        try{
-          const grantedIOS = await Geolocation.requestAuthorization("whenInUse");
-          if (grantedIOS === 'granted') {
-            Geolocation.getCurrentPosition(
-              (position) => {
-                console.log(position);
-              },
-              (error) => {
-                // See error code charts below.
-                console.log(error.code, error.message);
-              },
-              { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+    // Check permissions on IOS devices
+    if (Platform.OS == 'ios') {
+      try {
+        const grantedIOS = await Geolocation.requestAuthorization('always');
+        // If gelocation is granted then gets user latitude and longitude
+        if (grantedIOS === 'granted') {
+          Geolocation.getCurrentPosition(
+            position => {
+              // Sets the latitude and longitude
+              // console.log(position.coords.latitude)
+              setuserLatitude(position.coords.latitude);
+              setUserLongitude(position.coords.longitude);
+            },
+            error => {
+              // Permission was granted but there was an error retreiving data
+              console.log(error.code, error.message);
+            },
+            // High accuracy on Android geolocation services enabled
+            // {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
           );
-          } else {
-            console.log('Camera permission denied');
-          }
-        }catch(e){
-          console.log("Error: " + e)
+          return true;
+        } else {
+          // Permission denied
+          console.log('Location permissions denied');
+          return false;
         }
-    
+      } catch (e) {
+        // There was an error requesting
+        console.log('Error: ' + e);
+        return false;
+      }
     }
-}
+  };
+  const getPlacesData = async (url: string, i: number, idk: any[]) => {
+    if (i >= 119) {
+      return i;
+    } else {
+      try {
+        let a = 0
+        let res = await axios.get(url)
+        let nextPageUrl =
+          res.data.serpapi_pagination.next +
+          '&api_key=0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7';
+        // Checks if there is a next page token
+        if (nextPageUrl !== undefined) {
+          while (a < res.data.local_results.length){
+            // Add the results to the NeabyPlacesObj and nearbyPlacesNames array
+            if ( res.data.local_results[a].title + " " + res.data.local_results[a].address != undefined ) {
+              nearbyPlacesObjs.push(res.data.local_results[a]);
+              nearbyPlacesNames.push(res.data.local_results[a].title + " " + res.data.local_results[a].address);
+              i++;
+              a++;
+            }
+            //Else the name is undefined and wont be added to the array
+          }
+          getPlacesData(nextPageUrl, i, idk);
+        } else {
+          return i;
+        }
+      } catch (e: any) {
+        console.log(' Error: ' + e.message);
+      }
+    }
+  }
+  /**
+   * Async function that fetches the nearby places Google API, that then adds the given information into the nearby
+   * places object and nearby places name array.
+   */
+  const setPlacesView = async () => {
+    // const url =
+    //   'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' +
+    //   userLatitude +
+    //   ',' +
+    //   userLongitude +
+    //   '&radius=' +
+    //   radius +
+    //   '&key=' +
+    //   'AIzaSyDorecuyDEud62Eu7ZAXxy0AaZSWr3xJQg' +
+    //   '&type=bar' + 
+    //   '&pageToken='
+    const url = 'https://serpapi.com/search.json?engine=google_maps&q=pizza&ll=@42.9849,-81.2453,15.1z&type=search&api_key=0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7'
+      // '&next_page_token=AUjq9jmdTHvpoO0g6S-1r4P8K3cdcIMyMi_vF_-uxm9_enHkLsc534tbEwygW_5UlVRh20SDO_Q02E8_fyCCLDv4LvObmUrh3krVQ2zpspq7LTvROJ9kK0-_M_nyMqYfUhLfvjsiUW96Ol-Hh0SWtUHipkNgJyelrDoeL2qWPDRQVn17lVgMG4whQVesU1Z5Bhe_GWk-XKiTQ6kOjbp5jRqVw4J-jy_4vBHHQNRlm9HOUnvfeisM1QCpqa-EQG7b-HP7LJN0CxtPXMdH6CXyiIdJR6Zad6jVK1UaPxUA6p0MIgekTVHvxWltqf4OUkGDlN01PS9rfVF8xbKGMbk1StALkcWL5__QEsOD5dP_GpO8fLweDmwJmvv2vrAC56l4wFKSUtCeGf-vvpo2OX2GY0R5PJs46aiNFZ7iTF3O1a23a66yHtNZn9w'
+    try {
+      // let res = await axios.get(url);
+      // let nextPageData = res.data.serpapi_pagination.next
+      let idk = []
+      let i = 0;
+      let test = await getPlacesData(url, i, idk)
+      // let res = await axios.get(url);
+      // let url2 = res.data.serpapi_pagination.next;
+      // let i = 0;
+      // while (i < res.data.local_results.length) {
+      //   // Add nearby places object to component
+      //   // nearbyPlacesObjs.push(res.data.results[i]);
+      //   //Add nearby places by names to component
+      //   nearbyPlacesNames.push(res.data.local_results[i].title + " " + res.data.local_results[i].address);
+      //   i++;
+      // }
+      // let res2 = await axios.get(url2 + '&api_key=0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7');
+      // let a = 0;
+      // while (a < res2.data.local_results.length) {
+      //   // Add nearby places object to component
+      //   // nearbyPlacesObjs.push(res.data.results[i]);
+      //   //Add nearby places by names to component
+      //   nearbyPlacesNames.push(res2.data.local_results[a].title + " " + res2.data.local_results[a].address);
+      //   a++;
+      // }
 
+      // console.log(nearbyPlacesNames)
+      // const test = res.data.serpapi_pagination
+      // let res2 = await axios.get(test);
+      // console.log(res2.data.local_results);// figure out how to get next page token
+      // let i = 0;
+      // let idk = []
+      // while(i < 60){
+      // let test = await getPlacesData(url, i, idk);
+      // console.log(nearbyPlacesNames)
 
+      // console.log(process.env.REACT_APP_API_KEY)
 
-  return (
+      // console.log(test)
+      // }
+      //while look to traverse through
+      // while (i < res.data.results.length) {
+      //   // Add nearby places object to component
+      //   nearbyPlacesObjs.push(res.data.results[i]);
+      //   //Add nearby places by names to component
+      //   nearbyPlacesNames.push(res.data.results[i].name);
+      //   i++;
+      // }
+      // console.log(nearbyPlacesNames);
+      // const test = ["dog"];
+      // const test2 = ["cat"]
+      // if(test == test2) {
+      //   console.log("djsjhd")
+      // }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  /**
+   * This function takes in user data and autocomplets the best results based on the given information
+   * @param query passed in from user input to autcomplete specified locations
+   */
+  const findPlace = (query: string) => {
+    if (query) {
+      // Making a case insensitive regular expression
+      const regex = new RegExp(`${query.trim()}`, 'i');
+      setFilteredPlaces(
+        nearbyPlacesNames.filter(e => e.search(regex) >= 0), // fix regex expression to take special characters
+      );
+    } else {
+      // If the query is null then return blank
+      setFilteredPlaces([]);
+    }
+  };
 
+  /**
+   * UseEffect calls requestPermissions function that gets the user's geolocation. This information is then
+   * used to determine nerby places called via the setPlacesView function.
+   */
+  useEffect(() => {
+    if (requestPermissions()) {
+      console.log(process.env.REACT_APP_API_KEY)
+      // setPlacesView();
+      // console.log(userLatitude)
+    }
     
+    // requestPermissions();
+    // setPlacesView();
+  });
+  return (
     <View className = "h-screen w-screen">
-      {/* <Text>Hello</Text> */}
-      {/* <GooglePlacesAutocomplete
-       placeholder="Type a place"
-       onPress={(data, details = null) => console.log(data, details)}
-       query={{key: 'AIzaSyBK8hTEOjILN7q70ARVrHMIflOXHSJs1J4'}}
-       fetchDetails={true}
-       onFail={error => console.log(error)}
-       onNotFound={() => console.log('no results')}
-       currentLocation={true}
-       currentLocationLabel="Your location!" // add a simple label
-      /> */}
-      {/* <GooglePlacesAutocomplete
-      placeholder='Search'
-      onPress={(data, details = null) => {
-        // 'details' is provided when fetchDetails = true
-        console.log(data, details);
-      }}
-      query={{
-        key: 'YOUR API KEY',
-        language: 'en',
-      }}
-      currentLocation={true}
-      currentLocationLabel='Current location'
-    /> */}
-
-  <GooglePlacesAutocomplete
-        placeholder='Search'
-        onPress={(data, details = null) => {
-          // 'details' is provided when fetchDetails = true
-          console.log(data, details);
+      <MapView
+        style={styles.map}
+        initialRegion={{
+          latitude: 42.9851,
+          longitude: -81.2429,
+          latitudeDelta: 0.04,
+          longitudeDelta: 0.2,
         }}
-        query={{
-          key: 'YOUR API KEY',
-          language: 'en',
-        }}
-        currentLocation={true}
-        currentLocationLabel='Current location'
       />
-    <View className = 'h-40 justify-center top-20'>
-      <Button title='press me' onPress={requestCameraPermission}></Button>
 
+      <Autocomplete
+        className="top-60"
+        data={filteredPlaces}
+        onChangeText={(text) => findPlace(text)}
+        placeholder="Enter the film title"
+        renderItem={({item}) => (
+          <TouchableOpacity // fix up the the code and make it look pretty
+            onPress={() => {
+              setSelectedValue(item);
+              setFilteredPlaces([]);
+            }}>
+            <Text className="h-20">{item}</Text>
+          </TouchableOpacity>
+        )}
+      />
     </View>
-      
-
-      
-
-{/* <GooglePlacesAutocomplete
-      apiKey="AIzaSyBK8hTEOjILN7q70ARVrHMIflOXHSJs1J4"
-    /> */}
-      
-      {/* <MapView
-
-  style={styles.map}
-
-  initialRegion={{
-    latitude: 42.9851,
-    longitude: -81.2429,
-    latitudeDelta: 0.04,
-    longitudeDelta: 0.20,
-  }}
-/> */}
-    </View>
-  )
-}
+  );
+};
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
