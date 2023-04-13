@@ -1,6 +1,8 @@
 import React, {useEffect, useState, useRef} from 'react'
-import {StyleSheet, Text, View, PermissionsAndroid, Button, Platform, Alert, SafeAreaView, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, PermissionsAndroid, Button, Platform, Alert, SafeAreaView, TouchableOpacity, FlatList} from 'react-native';
 // import REACT_APP_API_KEY from '.env'
+// import CheckBox from '@react-native-community/checkbox';
+import CheckBox from 'expo-checkbox';
 import axios from 'axios';
 import Autocomplete from 'react-native-autocomplete-input'
 // import Placesearch from 'react-native-placesearch';
@@ -46,6 +48,8 @@ const Search = () => {
   // Nearby places object names used for search
   let nearbyPlacesNames: never[] = [];
   console.log(process.env.REACT_APP_API_KEY);
+
+  // const[buttonPressed, setButtonPressed] = useState();
 
   
   const[mapOpened, setMapOpened] = useState(false);
@@ -123,6 +127,7 @@ const Search = () => {
   };
   const getPlacesData = async (url: string, i: number, idk: any[]) => {
     if (i >= 119) {
+      // console.log(nearbyPlacesNames)
       return i;
     } else {
       try {
@@ -176,6 +181,7 @@ const Search = () => {
       let idk = []
       let i = 0;
       let test = await getPlacesData(url, i, idk)
+      // console.log(test);
       // let res = await axios.get(url);
       // let url2 = res.data.serpapi_pagination.next;
       // let i = 0;
@@ -218,7 +224,7 @@ const Search = () => {
       //   nearbyPlacesNames.push(res.data.results[i].name);
       //   i++;
       // }
-      // console.log(nearbyPlacesNames);
+      
       // const test = ["dog"];
       // const test2 = ["cat"]
       // if(test == test2) {
@@ -251,8 +257,9 @@ const Search = () => {
    */
   useEffect(() => {
     if (requestPermissions()) {
-      console.log(process.env.REACT_APP_API_KEY)
-      // setPlacesView();
+      // console.log(nearbyPlacesNames)
+      setPlacesView();
+      console.log(nearbyPlacesNames)
       // console.log(userLatitude)
     }
     
@@ -274,6 +281,16 @@ const Search = () => {
       <Autocomplete
         className="top-60"
         data={filteredPlaces}
+        flatListProps={{
+          keyExtractor: (_, idx) => idx,
+          renderItem: ({ item }) => <Text style = {styles.lists3}>{item}</Text><CheckBox
+          value={mapOpened}
+          onValueChange={() => console.log("Heee")}
+          style={styles.checkbox}
+        />,
+        }}
+        // inputContainerStyle={styles.lists3}
+        // listContainerStyle = {styles.lists2}
         onChangeText={(text) => findPlace(text)}
         placeholder="Enter the film title"
         renderItem={({item}) => (
@@ -282,10 +299,47 @@ const Search = () => {
               setSelectedValue(item);
               setFilteredPlaces([]);
             }}>
-            <Text className="h-20">{item}</Text>
+            <Text className="h-10 p-3 w- bg-red-400" >{item}</Text>
+            {/* <Text className="h-10 p-3 w- bg-red-400">Hello</Text> */}
           </TouchableOpacity>
         )}
       />
+      {/* <View className= "h-20 bg-red-400 absolute top-20">
+            <FlatList
+            data = {filteredPlaces}
+            renderItem={({item}) => <Text style={styles.lists3}>{item}</Text>}
+            
+            />
+      </View> */}
+      <View className= {mapOpened ? "h-3/4 bg-LineBuddyBlue rounded-t-lg bottom-0 inset-x-0 absolute": "h-16 bg-LineBuddyBlue rounded-t-lg bottom-0 inset-x-0 absolute"}>
+        <TouchableOpacity onPress={() => setMapOpened(!mapOpened)}  className = "items-end p-2">
+          <Triangle
+           width={50}
+           height={25}
+           color={'#FFFFFF'}
+           direction={mapOpened ? 'up' : 'down'}
+          />
+        </TouchableOpacity>
+        {/* {mapOpened && 
+          <View className = "">
+            <Autocomplete
+              className="top-0 rounded-lg"
+              data={filteredPlaces}
+              onChangeText={(text) => findPlace(text)}
+              placeholder="Enter a place..."
+              renderItem={({item}) => (
+                <TouchableOpacity // fix up the the code and make it look pretty
+                  onPress={() => {
+                    setSelectedValue(item);
+                    setFilteredPlaces([]);
+                  }}>
+                  <Text className="h-20 absolute bg-red-400">{item}</Text>
+                </TouchableOpacity>
+              )}
+            />
+          </View>
+        } */}
+      </View>
     </View>
   );
 };
@@ -300,6 +354,20 @@ const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
   },
+  lists2:{
+    backgroundColor:'red',
+    height: 100,
+  },
+  lists3:{
+    padding: 10,
+    fontSize: 18,
+    height: 44,
+    backgroundColor:'red',
+    // height: 40
+  },
+  checkbox:{
+    backgroundColor:'blue'
+  }
 
 })
 export default Search
