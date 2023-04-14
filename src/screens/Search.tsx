@@ -127,7 +127,7 @@ const Search = () => {
   };
   const getPlacesData = async (url: string, i: number, idk: any[]) => {
     if (i >= 119) {
-      // console.log(nearbyPlacesNames)
+      console.log(nearbyPlacesNames)
       return i;
     } else {
       try {
@@ -259,7 +259,6 @@ const Search = () => {
     if (requestPermissions()) {
       // console.log(nearbyPlacesNames)
       setPlacesView();
-      console.log(nearbyPlacesNames)
       // console.log(userLatitude)
     }
     
@@ -278,32 +277,6 @@ const Search = () => {
         }}
       />
 
-      <Autocomplete
-        className="top-60"
-        data={filteredPlaces}
-        flatListProps={{
-          keyExtractor: (_, idx) => idx,
-          renderItem: ({ item }) => <Text style = {styles.lists3}>{item}</Text><CheckBox
-          value={mapOpened}
-          onValueChange={() => console.log("Heee")}
-          style={styles.checkbox}
-        />,
-        }}
-        // inputContainerStyle={styles.lists3}
-        // listContainerStyle = {styles.lists2}
-        onChangeText={(text) => findPlace(text)}
-        placeholder="Enter the film title"
-        renderItem={({item}) => (
-          <TouchableOpacity // fix up the the code and make it look pretty
-            onPress={() => {
-              setSelectedValue(item);
-              setFilteredPlaces([]);
-            }}>
-            <Text className="h-10 p-3 w- bg-red-400" >{item}</Text>
-            {/* <Text className="h-10 p-3 w- bg-red-400">Hello</Text> */}
-          </TouchableOpacity>
-        )}
-      />
       {/* <View className= "h-20 bg-red-400 absolute top-20">
             <FlatList
             data = {filteredPlaces}
@@ -320,9 +293,37 @@ const Search = () => {
            direction={mapOpened ? 'up' : 'down'}
           />
         </TouchableOpacity>
-        {/* {mapOpened && 
-          <View className = "">
+        {mapOpened && 
+          <View className = "h-5/6">
             <Autocomplete
+                className="top-0"
+                data={filteredPlaces}
+                flatListProps={{
+                  keyExtractor: (_, idx) => idx,
+                  renderItem: ({ item }) => <View className="h-20 p-2 bg-LineBuddyBlue flex border-solid border-LineBuddyBlue border-8"><Text className = "bg-white p-2 w-5/6 border-solid border-black border text-center font-bold drop-shadow-xl">{item}</Text><CheckBox
+                  value={mapOpened}
+                  onValueChange={() => console.log("Heee")}// got it working with checkbox now make it looke prettier and fit in pop up
+                  className = "bg-white self-end absolute top-5 right-5 p-3 border-solid border-black"
+                /></View>,
+                }}
+                // inputContainerStyle={styles.lists3}
+                listContainerStyle = {styles.lists2}
+                onChangeText={(text) => findPlace(text)}
+                placeholder="Enter the film title"
+                renderItem={({item}) => (
+                  <TouchableOpacity // fix up the the code and make it look pretty
+                    onPress={() => {
+                      setSelectedValue(item);
+                      setFilteredPlaces([]);
+                    }}>
+                    <Text className="h-10 p-3 w- bg-red-400" >{item}</Text>
+                    {/* <Text className="h-10 p-3 w- bg-red-400">Hello</Text> */}
+                  </TouchableOpacity>
+                )}
+                  />
+
+
+            {/* <Autocomplete
               className="top-0 rounded-lg"
               data={filteredPlaces}
               onChangeText={(text) => findPlace(text)}
@@ -336,9 +337,9 @@ const Search = () => {
                   <Text className="h-20 absolute bg-red-400">{item}</Text>
                 </TouchableOpacity>
               )}
-            />
+            /> */}
           </View>
-        } */}
+        }
       </View>
     </View>
   );
@@ -355,8 +356,7 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
   },
   lists2:{
-    backgroundColor:'red',
-    height: 100,
+    backgroundColor:'#5CE1E6',
   },
   lists3:{
     padding: 10,
