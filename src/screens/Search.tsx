@@ -6,7 +6,7 @@ import CheckBox from 'expo-checkbox';
 import axios from 'axios';
 import Autocomplete from 'react-native-autocomplete-input'
 // import Placesearch from 'react-native-placesearch';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { Marker } from "react-native-maps";
 // import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import Geolocation from 'react-native-geolocation-service';
@@ -47,10 +47,13 @@ const Search = () => {
   // let nearbyPlacesNames = [];
   // Nearby places object names used for search
   let nearbyPlacesNames: never[] = [];
-  console.log(process.env.REACT_APP_API_KEY);
+  // console.log(process.env.REACT_APP_API_KEY);
 
   // const[buttonPressed, setButtonPressed] = useState();
 
+  //Places selcted by user from list
+  let placesSelectedArr = []
+  const [placesSelected, setPlacesSelected] = useState([]);
   
   const[mapOpened, setMapOpened] = useState(false);
   const [filteredPlaces, setFilteredPlaces] = useState([]);
@@ -242,6 +245,7 @@ const Search = () => {
     if (query) {
       // Making a case insensitive regular expression
       const regex = new RegExp(`${query.trim()}`, 'i');
+      console.log(placesSelected)
       setFilteredPlaces(
         nearbyPlacesNames.filter(e => e.search(regex) >= 0), // fix regex expression to take special characters
       );
@@ -251,19 +255,21 @@ const Search = () => {
     }
   };
 
+  const selectedPlacesObj = (item : string) => {
+    if(!placesSelected.includes(item)){
+      setPlacesSelected([...placesSelected, item]);
+    }
+  }
+
   /**
    * UseEffect calls requestPermissions function that gets the user's geolocation. This information is then
    * used to determine nerby places called via the setPlacesView function.
    */
   useEffect(() => {
     if (requestPermissions()) {
-      // console.log(nearbyPlacesNames)
       setPlacesView();
-      // console.log(userLatitude)
     }
     
-    // requestPermissions();
-    // setPlacesView();
   });
   return (
     <View className = "h-screen w-screen">
@@ -275,15 +281,16 @@ const Search = () => {
           latitudeDelta: 0.04,
           longitudeDelta: 0.2,
         }}
-      />
+      >
+        <Marker
+        pinColor = {"purple"}
+        coordinate={{latitude: 43.0096,longitude: -81.2737}}
+        title={"title"}
+        description={"description"}
+        />
+      </MapView>
 
-      {/* <View className= "h-20 bg-red-400 absolute top-20">
-            <FlatList
-            data = {filteredPlaces}
-            renderItem={({item}) => <Text style={styles.lists3}>{item}</Text>}
-            
-            />
-      </View> */}
+
       <View className= {mapOpened ? "h-3/4 bg-LineBuddyBlue rounded-t-lg bottom-0 inset-x-0 absolute": "h-16 bg-LineBuddyBlue rounded-t-lg bottom-0 inset-x-0 absolute"}>
         <TouchableOpacity onPress={() => setMapOpened(!mapOpened)}  className = "items-end p-2">
           <Triangle
@@ -301,46 +308,48 @@ const Search = () => {
                 flatListProps={{
                   keyExtractor: (_, idx) => idx,
                   renderItem: ({ item }) => <View className="h-20 p-2 bg-LineBuddyBlue flex border-solid border-LineBuddyBlue border-8"><Text className = "bg-white p-2 w-5/6 border-solid border-black border text-center font-bold drop-shadow-xl">{item}</Text><CheckBox
-                  value={mapOpened}
-                  onValueChange={() => console.log("Heee")}// got it working with checkbox now make it looke prettier and fit in pop up
-                  className = "bg-white self-end absolute top-5 right-5 p-3 border-solid border-black"
-                /></View>,
+                  onValueChange={() => {selectedPlacesObj(item)}}// figure out how to get setselected value working
+                  className = "bg-white self-end absolute top-5 right-5 p-3 border-solid border-black"// and y u cant pass value in through fucntio to change state
+                  value={placesSelected.includes(item)}
+                /></View> 
                 }}
                 // inputContainerStyle={styles.lists3}
-                listContainerStyle = {styles.lists2}
+                // listContainerStyle = {styles.lists2}
+                
                 onChangeText={(text) => findPlace(text)}
                 placeholder="Enter the film title"
-                renderItem={({item}) => (
-                  <TouchableOpacity // fix up the the code and make it look pretty
-                    onPress={() => {
-                      setSelectedValue(item);
-                      setFilteredPlaces([]);
-                    }}>
-                    <Text className="h-10 p-3 w- bg-red-400" >{item}</Text>
-                    {/* <Text className="h-10 p-3 w- bg-red-400">Hello</Text> */}
-                  </TouchableOpacity>
-                )}
+                // renderItem={({item}) => (
+                //   <TouchableOpacity // fix up the the code and make it look pretty
+                //     // onPress={() =>  {
+                //     //   setSelectedValue(item);
+                //     //   setFilteredPlaces([]);
+                //     // }}>
+                //     onPress={() => console.log("Kjdjks")}
+                //     >
+                //     {/* <Text className ="h-20">{item}</Text> */}
+                //     {/* <Text className="h-10 p-3 w- bg-red-400">Hello</Text> */}
+                //   </TouchableOpacity>
+                // )}
                   />
-
-
-            {/* <Autocomplete
-              className="top-0 rounded-lg"
-              data={filteredPlaces}
-              onChangeText={(text) => findPlace(text)}
-              placeholder="Enter a place..."
-              renderItem={({item}) => (
-                <TouchableOpacity // fix up the the code and make it look pretty
-                  onPress={() => {
-                    setSelectedValue(item);
-                    setFilteredPlaces([]);
-                  }}>
-                  <Text className="h-20 absolute bg-red-400">{item}</Text>
-                </TouchableOpacity>
-              )}
-            /> */}
-          </View>
+        </View>
         }
       </View>
+
+
+          
+
+
+      
+
+
+      {/* <View className= "h-20 bg-red-400 absolute top-20">
+            <FlatList
+            data = {filteredPlaces}
+            renderItem={({item}) => <Text style={styles.lists3}>{item}</Text>}
+            
+            />
+      </View> */}
+      
     </View>
   );
 };
@@ -367,7 +376,94 @@ const styles = StyleSheet.create({
   },
   checkbox:{
     backgroundColor:'blue'
-  }
+  },
+  // container: {
+  //   backgroundColor: '#F5FCFF',
+  //   flex: 1,
+  //   padding: 16,
+  //   marginTop: 40,
+  // },
+  autocompleteContainer: {
+    backgroundColor: '#ffffff',
+    borderWidth: 0,
+  },
+  descriptionContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  itemText: {
+    fontSize: 15,
+    paddingTop: 5,
+    paddingBottom: 5,
+    margin: 2,
+  },
+  infoText: {
+    textAlign: 'center',
+    fontSize: 16,
+  },
 
 })
 export default Search
+
+
+{/* <Autocomplete
+                // className="top-0"
+                data={filteredPlaces}
+                // flatListProps={{
+                //   keyExtractor: (_, idx) => idx,
+                //   renderItem: ({ item }) => <View className="h-20 p-2 bg-LineBuddyBlue flex border-solid border-LineBuddyBlue border-8"><Text className = "bg-white p-2 w-5/6 border-solid border-black border text-center font-bold drop-shadow-xl">{item}</Text><CheckBox
+                //   value={mapOpened}
+                //   onValueChange={() => console.log("Heee")}// got it working with checkbox now make it looke prettier and fit in pop up
+                //   className = "bg-white self-end absolute top-5 right-5 p-3 border-solid border-black"
+                // /></View>,
+                // }}
+                // inputContainerStyle={styles.lists3}
+                // listContainerStyle = {styles.lists2}
+                
+                onChangeText={(text) => findPlace(text)}
+                placeholder="Enter the film title"
+                renderItem={({item}) => (
+                  <TouchableOpacity // fix up the the code and make it look pretty
+                    onPress={() =>  {
+                      console.log("mskdjsk")
+                      setSelectedValue(item);
+                      setFilteredPlaces([]);
+                    }}>
+                    <Text className ="h-20">{item}</Text>
+                    {/* <Text className="h-10 p-3 w- bg-red-400">Hello</Text> */}
+                //   </TouchableOpacity>
+                // )}
+                //   /> */}
+
+
+{/* <View className= {mapOpened ? "h-3/4 bg-LineBuddyBlue rounded-t-lg bottom-0 inset-x-0 absolute": "h-16 bg-LineBuddyBlue rounded-t-lg bottom-0 inset-x-0 absolute"}>
+        <TouchableOpacity onPress={() => setMapOpened(!mapOpened)}  className = "items-end p-2">
+          <Triangle
+           width={50}
+           height={25}
+           color={'#FFFFFF'}
+           direction={mapOpened ? 'up' : 'down'}
+          />
+        </TouchableOpacity>
+        {mapOpened && 
+          <View className = "h-5/6">
+
+
+            {/* <Autocomplete
+              className="top-0 rounded-lg"
+              data={filteredPlaces}
+              onChangeText={(text) => findPlace(text)}
+              placeholder="Enter a place..."
+              renderItem={({item}) => (
+                <TouchableOpacity // fix up the the code and make it look pretty
+                  onPress={() => {
+                    setSelectedValue(item);
+                    setFilteredPlaces([]);
+                  }}>
+                  <Text className="h-20 absolute bg-red-400">{item}</Text>
+                </TouchableOpacity>
+              )}
+            /> */}
+      //     </View>
+      //   }
+      // </View> */}
