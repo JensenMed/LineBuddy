@@ -28,7 +28,7 @@ const Search = () => {
 
 
   // const url =
-  // "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longitude + "&radius=" + radius + "&key=" + "AIzaSyBK8hTEOjILN7q70ARVrHMIflOXHSJs1J4"
+  // "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longitude + "&radius=" + radius + "&key=" +
 
 
 
@@ -138,7 +138,6 @@ const Search = () => {
         let res = await axios.get(url)
         let nextPageUrl =
           res.data.serpapi_pagination.next +
-          '&api_key=0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7';
         // Checks if there is a next page token
         if (nextPageUrl !== undefined) {
           while (a < res.data.local_results.length){
@@ -173,11 +172,8 @@ const Search = () => {
     //   '&radius=' +
     //   radius +
     //   '&key=' +
-    //   'AIzaSyDorecuyDEud62Eu7ZAXxy0AaZSWr3xJQg' +
     //   '&type=bar' + 
-    //   '&pageToken='
-    const url = 'https://serpapi.com/search.json?engine=google_maps&q=pizza&ll=@42.9849,-81.2453,15.1z&type=search&api_key=0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7'
-      // '&next_page_token=AUjq9jmdTHvpoO0g6S-1r4P8K3cdcIMyMi_vF_-uxm9_enHkLsc534tbEwygW_5UlVRh20SDO_Q02E8_fyCCLDv4LvObmUrh3krVQ2zpspq7LTvROJ9kK0-_M_nyMqYfUhLfvjsiUW96Ol-Hh0SWtUHipkNgJyelrDoeL2qWPDRQVn17lVgMG4whQVesU1Z5Bhe_GWk-XKiTQ6kOjbp5jRqVw4J-jy_4vBHHQNRlm9HOUnvfeisM1QCpqa-EQG7b-HP7LJN0CxtPXMdH6CXyiIdJR6Zad6jVK1UaPxUA6p0MIgekTVHvxWltqf4OUkGDlN01PS9rfVF8xbKGMbk1StALkcWL5__QEsOD5dP_GpO8fLweDmwJmvv2vrAC56l4wFKSUtCeGf-vvpo2OX2GY0R5PJs46aiNFZ7iTF3O1a23a66yHtNZn9w'
+    //   
     try {
       // let res = await axios.get(url);
       // let nextPageData = res.data.serpapi_pagination.next
@@ -195,7 +191,7 @@ const Search = () => {
       //   nearbyPlacesNames.push(res.data.local_results[i].title + " " + res.data.local_results[i].address);
       //   i++;
       // }
-      // let res2 = await axios.get(url2 + '&api_key=0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7');
+    
       // let a = 0;
       // while (a < res2.data.local_results.length) {
       //   // Add nearby places object to component
