@@ -36,7 +36,10 @@ const Search = () => {
 
 
 
+  //selectedplacesObj
+  let selectedPlacesArray = []
 
+  const[selctedPlacesTest, setSelctedPlacesTest] = useState([])
 
   //Users latitude information
   const[userLatitude, setuserLatitude] = useState();
@@ -130,7 +133,7 @@ const Search = () => {
   };
   const getPlacesData = async (url: string, i: number, idk: any[]) => {
     if (i >= 119) {
-      console.log(nearbyPlacesNames)
+      // console.log(nearbyPlacesNames)
       return i;
     } else {
       try {
@@ -145,6 +148,11 @@ const Search = () => {
             if ( res.data.local_results[a].title + " " + res.data.local_results[a].address != undefined ) {
               nearbyPlacesObjs.push(res.data.local_results[a]);
               nearbyPlacesNames.push(res.data.local_results[a].title + " " + res.data.local_results[a].address);
+              let newPlace = {name:res.data.local_results[a].title + " " + res.data.local_results[a].address,selected:false}
+
+              // setSelectedPlacesObj({...selectedPlacesObj2, [newPlace.id]: newPlace})
+              // setSelectedPlacesObj([...selectedPlacesObj2, newPlace]);
+              selectedPlacesArray.push(newPlace)
               i++;
               a++;
             }
@@ -180,6 +188,27 @@ const Search = () => {
       let idk = []
       let i = 0;
       let test = await getPlacesData(url, i, idk)
+      // let idk2 = []
+      // for(let j = 0; j < nearbyPlacesNames.length; j++){
+      //   // let newPlace = [nearbyPlacesNames[j],j]
+      //   let newPlace = {name:nearbyPlacesNames[j],selected: false}
+
+      //   // setSelectedPlacesObj({...selectedPlacesObj2, [newPlace.id]: newPlace})
+      //   idk2.push(newPlace)
+      //   // setSelectedPlacesObj([...selectedPlacesObj2, newPlace])
+      // }
+      // console.log(idk2)
+      // for(let j = 0; j < nearbyPlacesNames.length; j++){
+      //   // let newPlace = [nearbyPlacesNames[j],j]
+      //   let newPlace = {name:nearbyPlacesNames[j],id:j}
+
+      //   setSelectedPlacesObj({...selectedPlacesObj2, [newPlace.id]: newPlace})
+      //   // setSelectedPlacesObj([...selectedPlacesObj2, newPlace])
+      // }
+      // console.log(selectedPlacesObj2)
+
+
+      // console.log(selectedPlacesObj2)
       // console.log(test);
       // let res = await axios.get(url);
       // let url2 = res.data.serpapi_pagination.next;
@@ -251,11 +280,25 @@ const Search = () => {
     }
   };
 
-  const selectedPlacesObj = (item : string) => {
-    if(!placesSelected.includes(item)){
-      setPlacesSelected([...placesSelected, item]);
-    }
+
+  const selectedPlacesObj = (item: string) => {
+
+    let testVal = false
+    selectedPlacesArray.map((obj) => {
+      if(obj.name == item){
+        obj.selected = !obj.selected 
+        testVal = obj.selected
+      }
+    })
+
+   if(testVal && !selctedPlacesTest.includes(item) ){
+    setSelctedPlacesTest([...selctedPlacesTest, item]);
+   }else{
+    let arrVal = selctedPlacesTest.filter(places => places != item)
+    setSelctedPlacesTest(arrVal)
+   }
   }
+  
 
   /**
    * UseEffect calls requestPermissions function that gets the user's geolocation. This information is then
@@ -288,7 +331,7 @@ const Search = () => {
 
 
       <View className= {mapOpened ? "h-3/4 bg-LineBuddyBlue rounded-t-lg bottom-0 inset-x-0 absolute": "h-16 bg-LineBuddyBlue rounded-t-lg bottom-0 inset-x-0 absolute"}>
-        <TouchableOpacity onPress={() => setMapOpened(!mapOpened)}  className = "items-end p-2">
+        <TouchableOpacity onPress={() => {setMapOpened(!mapOpened)}}  className = "items-end p-2">
           <Triangle
            width={50}
            height={25}
@@ -306,7 +349,7 @@ const Search = () => {
                   renderItem: ({ item }) => <View className="h-20 p-2 bg-LineBuddyBlue flex border-solid border-LineBuddyBlue border-8"><Text className = "bg-white p-2 w-5/6 border-solid border-black border text-center font-bold drop-shadow-xl">{item}</Text><CheckBox
                   onValueChange={() => {selectedPlacesObj(item)}}// figure out how to get setselected value working
                   className = "bg-white self-end absolute top-5 right-5 p-3 border-solid border-black"// and y u cant pass value in through fucntio to change state
-                  value={placesSelected.includes(item)}
+                  value={selctedPlacesTest.includes(item)}
                 /></View> 
                 }}
                 // inputContainerStyle={styles.lists3}
