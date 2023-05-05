@@ -34,12 +34,14 @@ const Search = () => {
 
 
 
+  //Selected places marker
+  const[markers, setMarkers] = useState([])
 
-
-  //selectedplacesObj
+  //selected places array us
   let selectedPlacesArray = []
 
-  const[selctedPlacesTest, setSelctedPlacesTest] = useState([])
+  // selected places when user selecets a places to be put onto map
+  const[selectedPlaces, setSelectedPlaces] = useState([])
 
   //Users latitude information
   const[userLatitude, setuserLatitude] = useState();
@@ -47,7 +49,6 @@ const Search = () => {
   const[userLongitude, setUserLongitude] = useState();
   // Nearby places objects
   let nearbyPlacesObjs = [];
-  // let nearbyPlacesNames = [];
   // Nearby places object names used for search
   let nearbyPlacesNames: never[] = [];
   // console.log(process.env.REACT_APP_API_KEY);
@@ -280,10 +281,19 @@ const Search = () => {
     }
   };
 
+  
 
   const selectedPlacesObj = (item: string) => {
-
     let testVal = false
+
+    // Adds values to markers on map
+    selectedPlaces.map((place) => {
+      let inSelcted = nearbyPlacesNames.indexOf(place)
+      let placeSelected = nearbyPlacesObjs[inSelcted] // grabs value from nearbyPlacesObj via index
+      setMarkers([...markers, {key: markers.length, title: placeSelected.title , latitude: placeSelected.gps_coordinates.latitude, longitude: placeSelected.gps_coordinates.longitude, description: placeSelected.type}])
+    })
+
+    // When user selects value to be put into arraywhill be 
     selectedPlacesArray.map((obj) => {
       if(obj.name == item){
         obj.selected = !obj.selected 
@@ -291,12 +301,14 @@ const Search = () => {
       }
     })
 
-   if(testVal && !selctedPlacesTest.includes(item) ){
-    setSelctedPlacesTest([...selctedPlacesTest, item]);
+    // Will add value to 
+   if(testVal && !selectedPlaces.includes(item) ){
+    setSelectedPlaces([...selectedPlaces, item]);
    }else{
-    let arrVal = selctedPlacesTest.filter(places => places != item)
-    setSelctedPlacesTest(arrVal)
+    let arrVal = selectedPlaces.filter(places => places != item)
+    setSelectedPlaces(arrVal)
    }
+
   }
   
 
@@ -321,12 +333,28 @@ const Search = () => {
           longitudeDelta: 0.2,
         }}
       >
-        <Marker
+        {markers && markers.map((marker) => (
+          <Marker
+          key = {marker.key}
+          coordinate={{latitude: marker.latitude, longitude: marker.longitude}}
+          title={marker.title}
+          description={marker.description}
+          />
+        ))}
+        {/* {this.state.markers.map((marker, index) => (
+          <Marker
+            key={index}
+            coordinate={marker.latlng}
+            title={marker.title}
+            description={marker.description}
+          />
+        ))} */}
+        {/* <Marker
         pinColor = {"purple"}
         coordinate={{latitude: 43.0096,longitude: -81.2737}}
         title={"title"}
         description={"description"}
-        />
+        /> */}
       </MapView>
 
 
