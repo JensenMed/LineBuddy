@@ -38,7 +38,7 @@ const Search = () => {
   const[markers, setMarkers] = useState([])
 
   //selected places array us
-  let selectedPlacesArray = []
+  let selectedPlacesArray: { name: string; selected: boolean; }[] = []
 
   // selected places when user selecets a places to be put onto map
   const[selectedPlaces, setSelectedPlaces] = useState([])
@@ -285,32 +285,136 @@ const Search = () => {
 
   const selectedPlacesObj = (item: string) => {
     let testVal = false
-
-    // Adds values to markers on map
-    selectedPlaces.map((place) => {
-      let inSelcted = nearbyPlacesNames.indexOf(place)
-      let placeSelected = nearbyPlacesObjs[inSelcted] // grabs value from nearbyPlacesObj via index
-      setMarkers([...markers, {key: markers.length, title: placeSelected.title , latitude: placeSelected.gps_coordinates.latitude, longitude: placeSelected.gps_coordinates.longitude, description: placeSelected.type}])
-    })
-
-    // When user selects value to be put into arraywhill be 
-    selectedPlacesArray.map((obj) => {
-      if(obj.name == item){
+    let objLocation = 0
+  
+    // console.log(markers)
+    // When user selects value to be put into array
+    selectedPlacesArray.map(obj => {
+      if (obj.name === item) {
         obj.selected = !obj.selected 
         testVal = obj.selected
       }
-    })
+    });
+    //  // Adds values to markers on map
+    //  selectedPlaces.map((place) => {
+    //   let inSelcted = nearbyPlacesNames.indexOf(place)
+    //   objLocation = inSelcted
+    //   let placeSelected = nearbyPlacesObjs[inSelcted] // grabs value from nearbyPlacesObj via index
+    //   // if(!markers.includes({key: markers.length, title: placeSelected.title , latitude: placeSelected.gps_coordinates.latitude, longitude: placeSelected.gps_coordinates.longitude, description: placeSelected.type})){
+    //     // console.log("dhsdh")
+    //   // let removeMarker = markers.filter(marker => marker.title + " " + removeMarkerFromObj.address != item)
+    //   let itemFound = false
+    //   for( let i = 0; i < markers.length; i++ ){
+    //     if(markers[i].title + " " + placeSelected.address == item){
+    //       itemFound = true
+    //     }
+    //   }
+    //   // console.log(itemFound)
+    //   if(itemFound == false){
+    //     let randomKey = Math.floor(Math.random() * 1000) + 1;
+    //     console.log(randomKey)
+    //     setMarkers([...markers, {key: randomKey, title: placeSelected.title , latitude: placeSelected.gps_coordinates.latitude, longitude: placeSelected.gps_coordinates.longitude, description: placeSelected.type}])
+    //   }
+    //   // console.log(markers.includes({key: markers.length, title: placeSelected.title , latitude: placeSelected.gps_coordinates.latitude, longitude: placeSelected.gps_coordinates.longitude, description: placeSelected.type}))
+      
+    //   // }
+    //   // setMarkers([...markers, {key: markers.length, title: placeSelected.title , latitude: placeSelected.gps_coordinates.latitude, longitude: placeSelected.gps_coordinates.longitude, description: placeSelected.type}])
+    // })
 
-    // Will add value to 
-   if(testVal && !selectedPlaces.includes(item) ){
-    setSelectedPlaces([...selectedPlaces, item]);
-   }else{
-    let arrVal = selectedPlaces.filter(places => places != item)
-    setSelectedPlaces(arrVal)
-   }
+    // console.log(markers)
+    // Will add value to selectedPlaces array if testVal is true (value is selected) and it is not already included in the array
+    if (testVal && selectedPlaces.includes(item) === false) {
+       // Adds values to markers on map
+      //  setS
+    //  selectedPlaces.map((place) => {
+    //   let inSelcted = nearbyPlacesNames.indexOf(place)
+    //   objLocation = inSelcted
+    //   // let placeSelected = nearbyPlacesObjs[inSelcted] // grabs value from nearbyPlacesObj via index
+    //   // if(!markers.includes({key: markers.length, title: placeSelected.title , latitude: placeSelected.gps_coordinates.latitude, longitude: placeSelected.gps_coordinates.longitude, description: placeSelected.type})){
+    //     // console.log("dhsdh")
+    //   // let removeMarker = markers.filter(marker => marker.title + " " + removeMarkerFromObj.address != item)
+    //   // let itemFound = false
+    //   // for( let i = 0; i < markers.length; i++ ){
+    //   //   if(markers[i].title + " " + placeSelected.address == item){
+    //   //     itemFound = true
+    //   //   }
+    //   // }
+    //   // console.log(itemFound)
+    //   // if(itemFound == false){
+    //   //   let randomKey = Math.floor(Math.random() * 1000) + 1;
+    //   //   console.log(randomKey)
+    //   //   setMarkers([...markers, {key: randomKey, title: placeSelected.title , latitude: placeSelected.gps_coordinates.latitude, longitude: placeSelected.gps_coordinates.longitude, description: placeSelected.type}])
+    //   // }
+    //   // console.log(markers.includes({key: markers.length, title: placeSelected.title , latitude: placeSelected.gps_coordinates.latitude, longitude: placeSelected.gps_coordinates.longitude, description: placeSelected.type}))
+      
+    //   // }
+    //   // setMarkers([...markers, {key: markers.length, title: placeSelected.title , latitude: placeSelected.gps_coordinates.latitude, longitude: placeSelected.gps_coordinates.longitude, description: placeSelected.type}])
+    // })
+    // Adds value to selecetedPlaces Array
+      setSelectedPlaces([...selectedPlaces, item]);
 
-  }
-  
+      // add value to markers
+
+      selectedPlaces.map((place) => {
+        let inSelcted = nearbyPlacesNames.indexOf(place)
+        objLocation = inSelcted
+        let placeSelected = nearbyPlacesObjs[inSelcted] // grabs value from nearbyPlacesObj via index
+        let itemFound = false
+        for( let i = 0; i < markers.length; i++ ){
+          if(markers[i].title + " " + placeSelected.address === item){
+            itemFound = true;
+          }
+        }
+        // console.log(itemFound)
+        if(itemFound == false){
+          let randomKey = Math.floor(Math.random() * 10000) + 1;
+          // console.log(placeSelected.title)
+          setMarkers([...markers, {key: randomKey, title: placeSelected.title , latitude: placeSelected.gps_coordinates.latitude, longitude: placeSelected.gps_coordinates.longitude, description: placeSelected.type, address: placeSelected.address}])
+        }
+
+      })
+      // console.log(markers)
+    } else if (testVal && selectedPlaces.includes(item) === true){
+      // dont do anything just acknowledge that its already in the array
+
+    } else {
+      // If the vale of testVal is false or its already in the array then remove it
+      // if(markers.includes(nearbyPlacesObjs[objLocation].title)){
+      //   console.log("KDlkdls")
+      // }
+      // if(!markers.includes(nearbyPlacesObjs[objLocation].title)){
+      //   console.log("dksj")
+      // }
+      // selectedPlaces.map((place) => {
+      //   let inSelcted = nearbyPlacesNames.indexOf(place)
+      //   objLocation = inSelcted
+      //   let placeSelected = nearbyPlacesObjs[inSelcted] // grabs value from nearbyPlacesObj via index
+      // })
+      // let finalNameVal = ""
+      // nearbyPlacesObjs.map((placeName) => {
+      //   if(placeName.title + " " + placeName.address === item){
+      //     finalNameVal = placeName.title + " " + placeName.address
+      //   }
+      // })
+      // console.log(finalNameVal)
+
+      // let removeMarkerFromObj = nearbyPlacesObjs[objLocation]
+      // let removeMarker = markers.filter(marker => marker.title + " " + removeMarkerFromObj.address != item)
+      let removeMarker = markers.filter(marker => item != item)
+      console.log(removeMarker)
+      // markers.map((marker) => {
+      //   if(marker.title + " " + marker.address == item) {
+      //     let removeVal = marker.title + " " + marker.address
+      //     lat arrVal = markers.filter(markerz => markerz.title + " " + .address != removeVal)
+      //   }
+      // })
+
+      // console.log(removeMarker)
+      // setMarkers(removeMarker)
+      let arrVal = selectedPlaces.filter(places => places != item);// get marker value to be removed and added to markers without duplicates
+      setSelectedPlaces(arrVal);
+    }
+  };
 
   /**
    * UseEffect calls requestPermissions function that gets the user's geolocation. This information is then
@@ -377,7 +481,7 @@ const Search = () => {
                   renderItem: ({ item }) => <View className="h-20 p-2 bg-LineBuddyBlue flex border-solid border-LineBuddyBlue border-8"><Text className = "bg-white p-2 w-5/6 border-solid border-black border text-center font-bold drop-shadow-xl">{item}</Text><CheckBox
                   onValueChange={() => {selectedPlacesObj(item)}}// figure out how to get setselected value working
                   className = "bg-white self-end absolute top-5 right-5 p-3 border-solid border-black"// and y u cant pass value in through fucntio to change state
-                  value={selctedPlacesTest.includes(item)}
+                  value={selectedPlaces.includes(item)}
                 /></View> 
                 }}
                 // inputContainerStyle={styles.lists3}
