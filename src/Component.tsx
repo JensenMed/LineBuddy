@@ -6,6 +6,7 @@ import Welcome from './screens/Welcome';
 import SignUp from './screens/SignUp';
 import Search from './screens/Search';
 import Admin from './screens/Admin';
+import Settings from './screens/Settings';
 
 
 const Component = () => {
@@ -14,7 +15,8 @@ const Component = () => {
       {/* <Home/> */}
       {/* <SignUp/> */}
       {/* <Search/> */}
-      <Admin/>
+      {/* <Admin/> */}
+      <Settings/>
     </View>
   )
 }
