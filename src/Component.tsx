@@ -7,6 +7,7 @@ import SignUp from './screens/SignUp';
 import Search from './screens/Search';
 import Admin from './screens/Admin';
 import Settings from './screens/Settings';
+import Admin_Settings from './screens/Admin_Settings';
 
 
 const Component = () => {
@@ -17,6 +18,7 @@ const Component = () => {
       {/* <Search/> */}
       {/* <Admin/> */}
       <Settings/>
+      {/* <Admin_Settings/> */}
     </View>
   )
 }
