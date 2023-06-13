@@ -5,8 +5,8 @@ import images from '../components/images';
 // import { StackNavigationProp } from '@react-navigation/stack';
 // import { useNavigation } from '@react-navigation/native';
 // import type { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { StackParamList } from '../StackComponent';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import {StackParamList} from '../StackComponent';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 // import { NavigationContainer } from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/core';
@@ -17,9 +17,6 @@ import { useNavigation } from '@react-navigation/core';
 // }
 
 // type NavigationProps = StackNavigationProp<StackParamList>
-
-;
-
 
 type Props = {
   navigation: NativeStackNavigationProp<StackParamList, 'Home'>;
@@ -32,7 +29,7 @@ type Props = {
 
 
 const Home = () => {
-  // const navigation = useNavigation<Props>();
+  const navigation = useNavigation<Props>();
   // const keyframe = new Keyframe({
   //   from: {
   //     transform: [{ rotate: '0deg' }],
@@ -88,7 +85,7 @@ const Home = () => {
       <View className="bg-white h-full">
         <Image  className="object-none object-center w-4/5 h-80 top-60 inset-x-10 animate-spin" source= {images.LineBuddyIcon}></Image>
         <Animated.Text  className={moveUp}>Welcome</Animated.Text>
-        <Button title='nextButton' ></Button>
+        <Button title='nextButton'  onPress={() => navigation.navigate('Welcome')}></Button>
       </View>
     </View>
   );
