@@ -18,6 +18,7 @@ export type StackParamList = {
     SignUp:undefined;
     Welcome:undefined;
     LogIn:undefined;
+    Search:undefined;
 }
 
 const Stack = createNativeStackNavigator();
@@ -39,10 +40,10 @@ const StackComponent = () => {
         name="SignUp"
         component={SignUp}
       />
-      {/* <Stack.Screen
+      <Stack.Screen
         name="Search"
         component={Search}
-      /> */}
+      />
       <Stack.Screen
         name="Settings"
         component={Settings}

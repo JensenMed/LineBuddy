@@ -38,10 +38,10 @@ const Settings = () => {
     } else if (password.search(/[a-z]/) < 0) {
       Alert.alert("Your password needs a lower case letter")
     } else if(password.search(/[A-Z]/) < 0) {
-      Alert.alert("Your password needs an uppser case letter")
+      Alert.alert("Your password needs an upper case letter")
     } else if (password.search(/[0-9]/) < 0) {
       Alert.alert("Your password needs a number")
-    } else if (password.search(/[!,%,^,&,*,),*,@,(]/) < 0) {
+    } else if (password.search(/[,!,%,^,&,*,),*,@,(,]/) < 0) {
       Alert.alert("Your password needs at least one of these !,%,^,&,*,),*,@,( special characters");
     } else {
       // add password to database but first check if email alreday exists and does not belong to same user
