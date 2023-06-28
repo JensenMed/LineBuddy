@@ -34,6 +34,12 @@ const Search = () => {
   const url = 'https://serpapi.com/search.json?engine=google_maps&q=pizza&ll=@42.9849,-81.2453,15.1z&type=search&api_key=0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7'
 
 
+  //Sets place type
+  const placeType = ['pizza', 'coffee']
+  const[placeTypeValue, setPlaceTypeValue] = useState([]);
+
+  // Sets if user selects if settings is opened
+  const [settingsOpened, setSettingsOpened] = useState(false);
   //Selected places marker
   const[markers, setMarkers] = useState([])
 
@@ -76,7 +82,6 @@ const Search = () => {
           Geolocation.getCurrentPosition(
             position => {
               // Sets the latitude and longitude
-              // console.log(position.coords.latitude)
               setuserLatitude(position.coords.latitude);
               setUserLongitude(position.coords.longitude);
             },
@@ -84,8 +89,7 @@ const Search = () => {
               // Permission was granted but there was an error retreiving data
               console.log(error.code, error.message);
             },
-            // High accuracy on Android geolocation services enabled
-            // {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+
           );
           return true;
         } else {
@@ -108,7 +112,6 @@ const Search = () => {
           Geolocation.getCurrentPosition(
             position => {
               // Sets the latitude and longitude
-              // console.log(position.coords.latitude)
               setuserLatitude(position.coords.latitude);
               setUserLongitude(position.coords.longitude);
             },
@@ -116,8 +119,6 @@ const Search = () => {
               // Permission was granted but there was an error retreiving data
               console.log(error.code, error.message);
             },
-            // High accuracy on Android geolocation services enabled
-            // {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
           );
           return true;
         } else {
@@ -132,35 +133,46 @@ const Search = () => {
       }
     }
   };
-  const getPlacesData = async (url: string, i: number, idk: any[]) => {
+  const getPlacesData = async (url: string, i: number) => {
     if (i >= 119) {
       return i;
     } else {
       try {
-        let a = 0
-        let res = await axios.get(url)
-        let nextPageUrl = res.data.serpapi_pagination.next + '&api_key=0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7'
+        let a = 0;
+        let res = await axios.get(url);
+        let nextPageUrl = res.data.serpapi_pagination.next + '&api_key=0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7';
 
         // Checks if there is a next page token
         if (nextPageUrl !== undefined) {
           // console.log("djkskdjd")
           while (a < res.data.local_results.length){
             // Add the results to the NeabyPlacesObj and nearbyPlacesNames array
-            if ( res.data.local_results[a].title + " " + res.data.local_results[a].address != undefined ) {
+            if (
+              res.data.local_results[a].title +
+                ' ' +
+                res.data.local_results[a].address !=
+              undefined
+            ) {
               nearbyPlacesObjs.push(res.data.local_results[a]);
-              nearbyPlacesNames.push(res.data.local_results[a].title + " " + res.data.local_results[a].address);
-              let newPlace = {name:res.data.local_results[a].title + " " + res.data.local_results[a].address,selected:false}
-              // console.log(nearbyPlacesNames)
-
-              // setSelectedPlacesObj({...selectedPlacesObj2, [newPlace.id]: newPlace})
-              // setSelectedPlacesObj([...selectedPlacesObj2, newPlace]);
-              selectedPlacesArray.push(newPlace)
+              nearbyPlacesNames.push(
+                res.data.local_results[a].title +
+                  ' ' +
+                  res.data.local_results[a].address,
+              );
+              let newPlace = {
+                name:
+                  res.data.local_results[a].title +
+                  ' ' +
+                  res.data.local_results[a].address,
+                selected: false,
+              };
+              selectedPlacesArray.push(newPlace);
               i++;
               a++;
             }
             //Else the name is undefined and wont be added to the array
           }
-          getPlacesData(nextPageUrl, i, idk);
+          getPlacesData(nextPageUrl, i);
         } else {
           return i;
         }
@@ -168,100 +180,15 @@ const Search = () => {
         console.log(' Error: ' + e.message);
       }
     }
-  }
+  };
   /**
    * Async function that fetches the nearby places Google API, that then adds the given information into the nearby
    * places object and nearby places name array.
    */
   const setPlacesView = async () => {
-    // const url =
-    //   'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' +
-    //   userLatitude +
-    //   ',' +
-    //   userLongitude +
-    //   '&radius=' +
-    //   radius +
-    //   '&key=' +
-    //   '&type=bar' + 
-    //   
     try {
-      // let res = await axios.get(url);
-      // let nextPageData = res.data.serpapi_pagination.next
-      let idk = []
       let i = 0;
-      let test = await getPlacesData(url, i, idk)
-
-
-      // let idk2 = []
-      // for(let j = 0; j < nearbyPlacesNames.length; j++){
-      //   // let newPlace = [nearbyPlacesNames[j],j]
-      //   let newPlace = {name:nearbyPlacesNames[j],selected: false}
-
-      //   // setSelectedPlacesObj({...selectedPlacesObj2, [newPlace.id]: newPlace})
-      //   idk2.push(newPlace)
-      //   // setSelectedPlacesObj([...selectedPlacesObj2, newPlace])
-      // }
-      // console.log(idk2)
-      // for(let j = 0; j < nearbyPlacesNames.length; j++){
-      //   // let newPlace = [nearbyPlacesNames[j],j]
-      //   let newPlace = {name:nearbyPlacesNames[j],id:j}
-
-      //   setSelectedPlacesObj({...selectedPlacesObj2, [newPlace.id]: newPlace})
-      //   // setSelectedPlacesObj([...selectedPlacesObj2, newPlace])
-      // }
-      // console.log(selectedPlacesObj2)
-
-
-      // console.log(selectedPlacesObj2)
-      // console.log(test);
-      // let res = await axios.get(url);
-      // let url2 = res.data.serpapi_pagination.next;
-      // let i = 0;
-      // while (i < res.data.local_results.length) {
-      //   // Add nearby places object to component
-      //   // nearbyPlacesObjs.push(res.data.results[i]);
-      //   //Add nearby places by names to component
-      //   nearbyPlacesNames.push(res.data.local_results[i].title + " " + res.data.local_results[i].address);
-      //   i++;
-      // }
-    
-      // let a = 0;
-      // while (a < res2.data.local_results.length) {
-      //   // Add nearby places object to component
-      //   // nearbyPlacesObjs.push(res.data.results[i]);
-      //   //Add nearby places by names to component
-      //   nearbyPlacesNames.push(res2.data.local_results[a].title + " " + res2.data.local_results[a].address);
-      //   a++;
-      // }
-
-      // console.log(nearbyPlacesNames)
-      // const test = res.data.serpapi_pagination
-      // let res2 = await axios.get(test);
-      // console.log(res2.data.local_results);// figure out how to get next page token
-      // let i = 0;
-      // let idk = []
-      // while(i < 60){
-      // let test = await getPlacesData(url, i, idk);
-      // console.log(nearbyPlacesNames)
-
-      // console.log(process.env.REACT_APP_API_KEY)
-
-      // console.log(test)
-      // }
-      //while look to traverse through
-      // while (i < res.data.results.length) {
-      //   // Add nearby places object to component
-      //   nearbyPlacesObjs.push(res.data.results[i]);
-      //   //Add nearby places by names to component
-      //   nearbyPlacesNames.push(res.data.results[i].name);
-      //   i++;
-      // }
-      
-      // const test = ["dog"];
-      // const test2 = ["cat"]
-      // if(test == test2) {
-      //   console.log("djsjhd")
-      // }
+      let awaitVal = await getPlacesData(url, i);
     } catch (e) {
       console.log(e);
     }
@@ -284,105 +211,71 @@ const Search = () => {
     }
   };
 
-  
-
+   /**
+   * This function takes in user data and autocomplets the best results based on the given information
+   * @param query passed in from user input to autcomplete specified locations
+   */
+   const findPlaceType = (query: string) => {
+    if (query) {
+      // Making a case insensitive regular expression
+      const regex = new RegExp(`${query.trim()}`, 'i');
+      setPlaceTypeValue(
+        placeType.filter(e => e.search(regex) >= 0), // fix regex expression to take special characters
+      );
+    } else {
+      // If the query is null then return blank
+      setPlaceTypeValue([]);
+    }
+  };
+  /**
+   * This functiontakes in a paramater of the item specified and added it to the list of selectedPlaces array and markers array
+   * @param item passed in when user selects specific location to be added to list
+   */
   const selectedPlacesObj = (item: string) => {
-    let testVal = false
-    let objLocation = 0
-  
-    // console.log(markers)
+    let objLocation = 0;
+    let testVal = false;
     // When user selects value to be put into array
     selectedPlacesArray.map(obj => {
       if (obj.name === item) {
-        obj.selected = !obj.selected 
-        testVal = obj.selected
+        obj.selected = !obj.selected;
+        testVal = obj.selected;
       }
     });
-    // console.log(testVal)
-    //  // Adds values to markers on map
-    //  selectedPlaces.map((place) => {
-    //   let inSelcted = nearbyPlacesNames.indexOf(place)
-    //   objLocation = inSelcted
-    //   let placeSelected = nearbyPlacesObjs[inSelcted] // grabs value from nearbyPlacesObj via index
-    //   // if(!markers.includes({key: markers.length, title: placeSelected.title , latitude: placeSelected.gps_coordinates.latitude, longitude: placeSelected.gps_coordinates.longitude, description: placeSelected.type})){
-    //     // console.log("dhsdh")
-    //   // let removeMarker = markers.filter(marker => marker.title + " " + removeMarkerFromObj.address != item)
-    //   let itemFound = false
-    //   for( let i = 0; i < markers.length; i++ ){
-    //     if(markers[i].title + " " + placeSelected.address == item){
-    //       itemFound = true
-    //     }
-    //   }
-    //   // console.log(itemFound)
-    //   if(itemFound == false){
-    //     let randomKey = Math.floor(Math.random() * 1000) + 1;
-    //     console.log(randomKey)
-    //     setMarkers([...markers, {key: randomKey, title: placeSelected.title , latitude: placeSelected.gps_coordinates.latitude, longitude: placeSelected.gps_coordinates.longitude, description: placeSelected.type}])
-    //   }
-    //   // console.log(markers.includes({key: markers.length, title: placeSelected.title , latitude: placeSelected.gps_coordinates.latitude, longitude: placeSelected.gps_coordinates.longitude, description: placeSelected.type}))
-      
-    //   // }
-    //   // setMarkers([...markers, {key: markers.length, title: placeSelected.title , latitude: placeSelected.gps_coordinates.latitude, longitude: placeSelected.gps_coordinates.longitude, description: placeSelected.type}])
-    // })
-
-    // console.log(markers)
     // Will add value to selectedPlaces array if testVal is true (value is selected) and it is not already included in the array
     if (testVal && selectedPlaces.includes(item) === false) {
-      // console.log('kllll')
-       // Adds values to markers on map
-      //  setS
-    //  selectedPlaces.map((place) => {
-    //   let inSelcted = nearbyPlacesNames.indexOf(place)
-    //   objLocation = inSelcted
-    //   // let placeSelected = nearbyPlacesObjs[inSelcted] // grabs value from nearbyPlacesObj via index
-    //   // if(!markers.includes({key: markers.length, title: placeSelected.title , latitude: placeSelected.gps_coordinates.latitude, longitude: placeSelected.gps_coordinates.longitude, description: placeSelected.type})){
-    //     // console.log("dhsdh")
-    //   // let removeMarker = markers.filter(marker => marker.title + " " + removeMarkerFromObj.address != item)
-    //   // let itemFound = false
-    //   // for( let i = 0; i < markers.length; i++ ){
-    //   //   if(markers[i].title + " " + placeSelected.address == item){
-    //   //     itemFound = true
-    //   //   }
-    //   // }
-    //   // console.log(itemFound)
-    //   // if(itemFound == false){
-    //   //   let randomKey = Math.floor(Math.random() * 1000) + 1;
-    //   //   console.log(randomKey)
-    //   //   setMarkers([...markers, {key: randomKey, title: placeSelected.title , latitude: placeSelected.gps_coordinates.latitude, longitude: placeSelected.gps_coordinates.longitude, description: placeSelected.type}])
-    //   // }
-    //   // console.log(markers.includes({key: markers.length, title: placeSelected.title , latitude: placeSelected.gps_coordinates.latitude, longitude: placeSelected.gps_coordinates.longitude, description: placeSelected.type}))
-      
-    //   // }
-    //   // setMarkers([...markers, {key: markers.length, title: placeSelected.title , latitude: placeSelected.gps_coordinates.latitude, longitude: placeSelected.gps_coordinates.longitude, description: placeSelected.type}])
-    // })
-    // Adds value to selecetedPlaces Array
-      selectedPlaces.push(item)
+      // Adds value to selecetedPlaces Array
+      selectedPlaces.push(item);
       setSelectedPlaces(selectedPlaces);
-  
-      // console.log(selectedPlaces)
-      // add value to markers
-
+      //Iterates through selectedPlaces array and adds value to marker if not already sin there
       selectedPlaces.map((place) => {
-        // console.log(place)
-        let inSelcted = nearbyPlacesNames.indexOf(place)
-        objLocation = inSelcted
-        let placeSelected = nearbyPlacesObjs[inSelcted] // grabs value from nearbyPlacesObj via index
-        let itemFound = false
-        // console.log("jjjjj")
+        let inSelcted = nearbyPlacesNames.indexOf(place);
+        objLocation = inSelcted;
+        let placeSelected = nearbyPlacesObjs[inSelcted]; // grabs value from nearbyPlacesObj via index
+        let itemFound = false;
+        //checks if already in markers
         for( let i = 0; i < markers.length; i++ ){
-          if(markers[i].title + " " + placeSelected.address === item){
+          if (markers[i].title + ' ' + placeSelected.address === item) {
             itemFound = true;
           }
         }
-        if(itemFound == false){
+        // if not found then add to markers
+        if (itemFound === false) {
           let randomKey = Math.floor(Math.random() * 10000) + 1;
-          setMarkers([...markers, {key: randomKey, title: placeSelected.title , latitude: placeSelected.gps_coordinates.latitude, longitude: placeSelected.gps_coordinates.longitude, description: placeSelected.type, address: placeSelected.address}])
+          setMarkers([
+            ...markers,
+            {
+              key: randomKey,
+              title: placeSelected.title,
+              latitude: placeSelected.gps_coordinates.latitude,
+              longitude: placeSelected.gps_coordinates.longitude,
+              description: placeSelected.type,
+              address: placeSelected.address,
+            },
+          ]);
         }
-      })
-
-    } else if (testVal && selectedPlaces.includes(item) === true){
+      });
+    } else if (testVal && selectedPlaces.includes(item) === true) {
       // dont do anything just acknowledge that its already in the array
-
     } else {
       let removeMarker = markers.filter(marker => marker.title + " " + marker.address != item)
       setMarkers(removeMarker)
@@ -390,6 +283,10 @@ const Search = () => {
       setSelectedPlaces(arrVal);
     }
   };
+
+  const handleSettings = () => {
+    setSettingsOpened(!settingsOpened);
+  }
 
   /**
    * UseEffect calls requestPermissions function that gets the user's geolocation. This information is then
@@ -399,10 +296,10 @@ const Search = () => {
     if (requestPermissions()) {
       setPlacesView();
     }
-    
   });
   return (
     <View className = "h-screen w-screen">
+      {/* Map display */}
       <MapView
         style={styles.map}
         initialRegion={{
@@ -410,32 +307,58 @@ const Search = () => {
           longitude: -81.2429,
           latitudeDelta: 0.04,
           longitudeDelta: 0.2,
-        }}
-      >
-        {markers && markers.map((marker) => (
-          <Marker
-          key = {marker.key}
-          coordinate={{latitude: marker.latitude, longitude: marker.longitude}}
-          title={marker.title}
-          description={marker.description}
-          />
-        ))}
-        {/* {this.state.markers.map((marker, index) => (
-          <Marker
-            key={index}
-            coordinate={marker.latlng}
-            title={marker.title}
-            description={marker.description}
-          />
-        ))} */}
-        {/* <Marker
-        pinColor = {"purple"}
-        coordinate={{latitude: 43.0096,longitude: -81.2737}}
-        title={"title"}
-        description={"description"}
-        /> */}
+        }}>
+          {/* Markers added to map display */}
+        {markers &&
+          markers.map(marker => (
+            <Marker
+              key={marker.key}
+              coordinate={{
+                latitude: marker.latitude,
+                longitude: marker.longitude,
+              }}
+              title={marker.title}
+              description={marker.description}
+            />
+          ))}
       </MapView>
-
+      {/* Settings Button */}
+      <View>
+        {settingsOpened && mapOpened == false && <TouchableOpacity onPress={() => handleSettings()}>
+        <View className="h-12 w-14 bg-LineBuddyGray right-3/4 absolute inset-y-24 rounded-l-xl">
+          <Text className="h-1 w-10 bg-white absolute inset-x-2 inset-y-3">-</Text>
+          <Text className="h-1 w-10 bg-white absolute inset-x-2 inset-y-6 ">-</Text>
+          <Text className="h-1 w-10 bg-white absolute inset-x-2 inset-y-9 ">-</Text>
+        </View>
+      </TouchableOpacity>}
+      {settingsOpened && mapOpened == false && <View className="h-full w-5/6 bg-LineBuddyGray inset-x-24 inset-y-24">
+      <Autocomplete
+              className="top-0"
+              data={placeType}
+              flatListProps={{
+                keyExtractor: (_, idx) => idx,
+                renderItem: ({ item }) => <View className="h-20 p-2 bg-LineBuddyBlue flex border-solid border-LineBuddyBlue border-8"><Text className = "bg-white p-2 w-5/6 border-solid border-black border text-center font-bold drop-shadow-xl">{item}</Text><CheckBox
+                      onValueChange={() => {
+                        selectedPlacesObj(item);
+                      }}
+                      className="bg-white self-end absolute top-5 right-5 p-3 border-solid border-black" // and y u cant pass value in through fucntio to change state
+                      value={placeType.includes(item)}
+                /></View> 
+                }}
+              onChangeText={text => findPlaceType(text)}
+              placeholder="Enter the film title"
+            />
+        
+        </View>}
+      {settingsOpened == false && <TouchableOpacity onPress={() => handleSettings()}>
+        <View className="h-12 w-14 bg-LineBuddyGray right-0 absolute inset-y-24 rounded-l-xl">
+          <Text className="h-1 w-10 bg-white absolute inset-x-2 inset-y-3">-</Text>
+          <Text className="h-1 w-10 bg-white absolute inset-x-2 inset-y-6 ">-</Text>
+          <Text className="h-1 w-10 bg-white absolute inset-x-2 inset-y-9 ">-</Text>
+        </View>
+      </TouchableOpacity>}
+      </View>
+      {/* Displays list of different places */}
       <View className= {mapOpened ? "h-3/4 bg-LineBuddyBlue rounded-t-lg bottom-0 inset-x-0 absolute": "h-16 bg-LineBuddyBlue rounded-t-lg bottom-0 inset-x-0 absolute"}>
         <TouchableOpacity onPress={() => {setMapOpened(!mapOpened)}}  className = "items-end p-2">
           <Triangle
@@ -445,215 +368,33 @@ const Search = () => {
            direction={mapOpened ? 'up' : 'down'}
           />
         </TouchableOpacity>
+        {/* Handles places in list and adds them to the markers if clicked*/}
         {mapOpened && 
           <View className = "h-5/6">
             <Autocomplete
-                className="top-0"
-                data={filteredPlaces}
-                flatListProps={{
-                  keyExtractor: (_, idx) => idx,
-                  renderItem: ({ item }) => <View className="h-20 p-2 bg-LineBuddyBlue flex border-solid border-LineBuddyBlue border-8"><Text className = "bg-white p-2 w-5/6 border-solid border-black border text-center font-bold drop-shadow-xl">{item}</Text><CheckBox
-                  onValueChange={() => {selectedPlacesObj(item)}}// figure out how to get setselected value working
-                  className = "bg-white self-end absolute top-5 right-5 p-3 border-solid border-black"// and y u cant pass value in through fucntio to change state
-                  value={selectedPlaces.includes(item)}
+              className="top-0"
+              data={filteredPlaces}
+              flatListProps={{
+                keyExtractor: (_, idx) => idx,
+                renderItem: ({ item }) => <View className="h-20 p-2 bg-LineBuddyBlue flex border-solid border-LineBuddyBlue border-8"><Text className = "bg-white p-2 w-5/6 border-solid border-black border text-center font-bold drop-shadow-xl">{item}</Text><CheckBox
+                      onValueChange={() => {
+                        selectedPlacesObj(item);
+                      }}
+                      className="bg-white self-end absolute top-5 right-5 p-3 border-solid border-black" // and y u cant pass value in through fucntio to change state
+                      value={selectedPlaces.includes(item)}
                 /></View> 
                 }}
-                // inputContainerStyle={styles.lists3}
-                // listContainerStyle = {styles.lists2}
-                
-                onChangeText={(text) => findPlace(text)}
-                placeholder="Enter the film title"
-                // renderItem={({item}) => (
-                //   <TouchableOpacity // fix up the the code and make it look pretty
-                //     // onPress={() =>  {
-                //     //   setSelectedValue(item);
-                //     //   setFilteredPlaces([]);
-                //     // }}>
-                //     onPress={() => console.log("Kjdjks")}
-                //     >
-                //     {/* <Text className ="h-20">{item}</Text> */}
-                //     {/* <Text className="h-10 p-3 w- bg-red-400">Hello</Text> */}
-                //   </TouchableOpacity>
-                // )}
-                  />
-                  </View>
-                  }
-                </View>
-          
-          
-                    
-          
-          
-                
-          
-          
-                {/* <View className= "h-20 bg-red-400 absolute top-20">
-                      <FlatList
-                      data = {filteredPlaces}
-                      renderItem={({item}) => <Text style={styles.lists3}>{item}</Text>}
-                      
-                      />
-                </View> */}
-                
-
-
-
-      
+              onChangeText={text => findPlace(text)}
+              placeholder="Enter the film title"
+            />
+          </View>}
+          </View>
     </View>
   );
 };
 const styles = StyleSheet.create({
-  container: {
-    ...StyleSheet.absoluteFillObject,
-    height: 500,
-    width: 500,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
   map: {
     ...StyleSheet.absoluteFillObject,
   },
-  lists2:{
-    backgroundColor:'#5CE1E6',
-  },
-  lists3:{
-    padding: 10,
-    fontSize: 18,
-    height: 44,
-    backgroundColor:'red',
-    // height: 40
-  },
-  checkbox:{
-    backgroundColor:'blue'
-  },
-  // container: {
-  //   backgroundColor: '#F5FCFF',
-  //   flex: 1,
-  //   padding: 16,
-  //   marginTop: 40,
-  // },
-  autocompleteContainer: {
-    backgroundColor: '#ffffff',
-    borderWidth: 0,
-  },
-  descriptionContainer: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  itemText: {
-    fontSize: 15,
-    paddingTop: 5,
-    paddingBottom: 5,
-    margin: 2,
-  },
-  infoText: {
-    textAlign: 'center',
-    fontSize: 16,
-  },
-
-})
-export default Search
-
-
-
-
-
-
-// dis shit 
-
-// {mapOpened && 
-//   <View className = "h-5/6">
-//     <Autocomplete
-//         className="top-0"
-//         data={filteredPlaces}
-//         flatListProps={{
-//           keyExtractor: (_, idx) => idx,
-//           renderItem: ({ item }) => <View className="h-20 p-2 bg-LineBuddyBlue flex border-solid border-LineBuddyBlue border-8"><Text className = "bg-white p-2 w-5/6 border-solid border-black border text-center font-bold drop-shadow-xl">{item}</Text><CheckBox
-//           onValueChange={() => {selectedPlacesObj(item)}}// figure out how to get setselected value working
-//           className = "bg-white self-end absolute top-5 right-5 p-3 border-solid border-black"// and y u cant pass value in through fucntio to change state
-//           value={selectedPlaces.includes(item)}
-//         /></View> 
-//         }}
-//         // inputContainerStyle={styles.lists3}
-//         // listContainerStyle = {styles.lists2}
-        
-//         onChangeText={(text) => findPlace(text)}
-//         placeholder="Enter the film title"
-//         // renderItem={({item}) => (
-//         //   <TouchableOpacity // fix up the the code and make it look pretty
-//         //     // onPress={() =>  {
-//         //     //   setSelectedValue(item);
-//         //     //   setFilteredPlaces([]);
-//         //     // }}>
-//         //     onPress={() => console.log("Kjdjks")}
-//         //     >
-//         //     {/* <Text className ="h-20">{item}</Text> */}
-//         //     {/* <Text className="h-10 p-3 w- bg-red-400">Hello</Text> */}
-//         //   </TouchableOpacity>
-//         // )}
-//           />
-// </View>
-// }
-
-
-{/* <Autocomplete
-                // className="top-0"
-                data={filteredPlaces}
-                // flatListProps={{
-                //   keyExtractor: (_, idx) => idx,
-                //   renderItem: ({ item }) => <View className="h-20 p-2 bg-LineBuddyBlue flex border-solid border-LineBuddyBlue border-8"><Text className = "bg-white p-2 w-5/6 border-solid border-black border text-center font-bold drop-shadow-xl">{item}</Text><CheckBox
-                //   value={mapOpened}
-                //   onValueChange={() => console.log("Heee")}// got it working with checkbox now make it looke prettier and fit in pop up
-                //   className = "bg-white self-end absolute top-5 right-5 p-3 border-solid border-black"
-                // /></View>,
-                // }}
-                // inputContainerStyle={styles.lists3}
-                // listContainerStyle = {styles.lists2}
-                
-                onChangeText={(text) => findPlace(text)}
-                placeholder="Enter the film title"
-                renderItem={({item}) => (
-                  <TouchableOpacity // fix up the the code and make it look pretty
-                    onPress={() =>  {
-                      console.log("mskdjsk")
-                      setSelectedValue(item);
-                      setFilteredPlaces([]);
-                    }}>
-                    <Text className ="h-20">{item}</Text>
-                    {/* <Text className="h-10 p-3 w- bg-red-400">Hello</Text> */}
-                //   </TouchableOpacity>
-                // )}
-                //   /> */}
-
-
-{/* <View className= {mapOpened ? "h-3/4 bg-LineBuddyBlue rounded-t-lg bottom-0 inset-x-0 absolute": "h-16 bg-LineBuddyBlue rounded-t-lg bottom-0 inset-x-0 absolute"}>
-        <TouchableOpacity onPress={() => setMapOpened(!mapOpened)}  className = "items-end p-2">
-          <Triangle
-           width={50}
-           height={25}
-           color={'#FFFFFF'}
-           direction={mapOpened ? 'up' : 'down'}
-          />
-        </TouchableOpacity>
-        {mapOpened && 
-          <View className = "h-5/6">
-
-
-            {/* <Autocomplete
-              className="top-0 rounded-lg"
-              data={filteredPlaces}
-              onChangeText={(text) => findPlace(text)}
-              placeholder="Enter a place..."
-              renderItem={({item}) => (
-                <TouchableOpacity // fix up the the code and make it look pretty
-                  onPress={() => {
-                    setSelectedValue(item);
-                    setFilteredPlaces([]);
-                  }}>
-                  <Text className="h-20 absolute bg-red-400">{item}</Text>
-                </TouchableOpacity>
-              )}
-            /> */}
-      //     </View>
-      //   }
-      // </View> */}
+});
+export default Search;
