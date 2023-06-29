@@ -35,8 +35,12 @@ const Search = () => {
 
 
   //Sets place type
-  const placeType = ['pizza', 'coffee']
+  const placeType = ['pizza','coffee']
+  const placeTypeObj = [{'name': 'pizza', 'selected':'false'}, {'name':'coffee', 'selected':'false'}]
+  const [placesTypeSelectedObj, setTypePlacesSelectedObj] = useState([{name: 'pizza', selected:'false'}, {name:'coffee', selected:'false'}])
+
   const[placeTypeValue, setPlaceTypeValue] = useState([]);
+  const[selectedType, setSelectedPlaceType] = useState([])
 
   // Sets if user selects if settings is opened
   const [settingsOpened, setSettingsOpened] = useState(false);
@@ -201,7 +205,6 @@ const Search = () => {
     if (query) {
       // Making a case insensitive regular expression
       const regex = new RegExp(`${query.trim()}`, 'i');
-      console.log(placesSelected)
       setFilteredPlaces(
         nearbyPlacesNames.filter(e => e.search(regex) >= 0), // fix regex expression to take special characters
       );
@@ -210,6 +213,24 @@ const Search = () => {
       setFilteredPlaces([]);
     }
   };
+
+  const selectedPlaceType = (item: string) => {
+    // console.log(placesTypeSelectedObj)
+    placesTypeSelectedObj.map(val => {
+      // console.log(Object.keys(val))
+      // console.log(val)
+      if(val.name == item){
+        let selectedVal = val.selected;
+        val.selected = !selectedVal
+        if(selectedType.length == 0 && val.selected){
+          setSelectedPlaceType([...selectedType, item]);
+        }
+        if(selectedType.length != 0 && val.selected == false){
+          setSelectedPlaceType([]);
+        }
+      }
+    })
+  }
 
    /**
    * This function takes in user data and autocomplets the best results based on the given information
@@ -334,15 +355,15 @@ const Search = () => {
       {settingsOpened && mapOpened == false && <View className="h-full w-5/6 bg-LineBuddyGray inset-x-24 inset-y-24">
       <Autocomplete
               className="top-0"
-              data={placeType}
+              data={placeTypeValue}
               flatListProps={{
                 keyExtractor: (_, idx) => idx,
-                renderItem: ({ item }) => <View className="h-20 p-2 bg-LineBuddyBlue flex border-solid border-LineBuddyBlue border-8"><Text className = "bg-white p-2 w-5/6 border-solid border-black border text-center font-bold drop-shadow-xl">{item}</Text><CheckBox
+                renderItem: ({ item }) => <View className="h-20 p-2 bg-LineBuddyGray flex border-solid border-LineBuddyGray border-8"><Text className = "bg-white p-2 w-5/6 border-solid border-black border text-center font-bold drop-shadow-xl">{item}</Text><CheckBox
                       onValueChange={() => {
-                        selectedPlacesObj(item);
+                        selectedPlaceType(item);
                       }}
-                      className="bg-white self-end absolute top-5 right-5 p-3 border-solid border-black" // and y u cant pass value in through fucntio to change state
-                      value={placeType.includes(item)}
+                      className="bg-white self-end absolute top-3 right-5 p-3 border-solid border-black" // and y u cant pass value in through fucntio to change state
+                      value={selectedType.includes(item)}
                 /></View> 
                 }}
               onChangeText={text => findPlaceType(text)}
