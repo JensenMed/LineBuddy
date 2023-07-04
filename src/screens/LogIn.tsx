@@ -16,7 +16,7 @@ const LogIn = () => {
     <View className = 'bg-LineBuddyGray h-full'>
       <View className = 'bg-white h-1/4 rounded-bl-[20px] rounded-br-[20px]'>
         <Image source = {images.LineBuddyBalloon} className='h-40 w-40 rotate-180 -top-20 -left-10'></Image>
-        <Text className = 'text-5xl font-bold text-LineBuddyBlue flex text-center -top-1/4'>Log In</Text>
+        <Text className = 'text-5xl font-bold text-LineBuddyBlue flex text-center -top-1/4'>Login</Text>
       </View>
 
       <View className ='h-2/3 w-4/5 relative inset-x-10 inset-y-12' >
@@ -30,8 +30,8 @@ const LogIn = () => {
         </View>
       </View>
       <View className = '-inset-y-52'>
-        <TouchableOpacity className = 'justify-center inset-x-10 text-center bg-LineBuddyBlue w-4/5 h-16 rounded-full'>
-            <Text className = 'text-lg text-white text-center'>Log In</Text>
+        <TouchableOpacity className = 'justify-center inset-x-10 text-center bg-LineBuddyBlue w-4/5 h-16 rounded-full' onPress={() => navigation.navigate('Search')}>
+            <Text className = 'text-lg text-white text-center'>Login</Text>
         </TouchableOpacity>
         <Text className = 'text-white text-center mt-4'>
             Don't have an Account? <TouchableOpacity onPress = {() => navigation.navigate("SignUp")}><Text className = 'text-LineBuddyPink underline text-align top-1'>Sign Up</Text></TouchableOpacity>

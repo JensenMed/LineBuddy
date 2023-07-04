@@ -13,18 +13,26 @@ import Geolocation from 'react-native-geolocation-service';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 // import Geolocation from '@react-native-community/geolocation';
 import Triangle from 'react-native-triangle';
+import { StackParamList } from '../StackComponent';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
 
 // interface nearbyPlacesNames ={
 //   nearbyPlacesNames: string[];
 // }
 
 // type 
+type Props = {
+  navigation: NativeStackNavigationProp<StackParamList, 'Search'>;
+  navigate: any;
+};
 
 
 const Search = () => {
   const latitude = 37.773972;
   const longitude = -122.431297;
   let radius = 50000;
+  const navigation = useNavigation<Props>();
 
 
   // const url =
@@ -38,6 +46,8 @@ const Search = () => {
   const placeType = ['pizza','coffee']
   const placeTypeObj = [{'name': 'pizza', 'selected':'false'}, {'name':'coffee', 'selected':'false'}]
   const [placesTypeSelectedObj, setTypePlacesSelectedObj] = useState([{name: 'pizza', selected:'false'}, {name:'coffee', selected:'false'}])
+  //sets query type for api
+  const[queryType, setQueryType] = useState();
 
   const[placeTypeValue, setPlaceTypeValue] = useState([]);
   const[selectedType, setSelectedPlaceType] = useState([])
@@ -224,9 +234,11 @@ const Search = () => {
         val.selected = !selectedVal
         if(selectedType.length == 0 && val.selected){
           setSelectedPlaceType([...selectedType, item]);
+          setQueryType(item)
         }
         if(selectedType.length != 0 && val.selected == false){
           setSelectedPlaceType([]);
+          setQueryType();
         }
       }
     })
@@ -358,7 +370,7 @@ const Search = () => {
               data={placeTypeValue}
               flatListProps={{
                 keyExtractor: (_, idx) => idx,
-                renderItem: ({ item }) => <View className="h-20 p-2 bg-LineBuddyGray flex border-solid border-LineBuddyGray border-8"><Text className = "bg-white p-2 w-5/6 border-solid border-black border text-center font-bold drop-shadow-xl">{item}</Text><CheckBox
+                renderItem: ({ item }) => <View className="h-20 p-2 bg-LineBuddyGray flex border-solid border-LineBuddyGray border-8"><Text className = "bg-white p-2 w-5/6 border-solid border-black border text-center font-bold drop-shadow-xl capitalize">{item}</Text><CheckBox
                       onValueChange={() => {
                         selectedPlaceType(item);
                       }}
@@ -369,6 +381,17 @@ const Search = () => {
               onChangeText={text => findPlaceType(text)}
               placeholder="Enter the film title"
             />
+            <View className = "top-1/2 absolute inset-x-2">
+              <Text className = "text-center text-2xl text-white font-bold pr-8">Your current place type</Text>
+              <Text className = "text-center text-2xl text-white font-bold pr-8 underline underline-offset-8 capitalize">{queryType}</Text>
+            </View>
+
+            <View className = '-inset-y-52'>
+              <TouchableOpacity className = 'justify-center inset-x-5 text-center bg-LineBuddyPink w-4/5 h-16 rounded-full' onPress={() => navigation.navigate('Settings')}>
+                  <Text className = 'text-lg text-white text-center'>Settings</Text>
+              </TouchableOpacity>
+        
+            </View>
         
         </View>}
       {settingsOpened == false && <TouchableOpacity onPress={() => handleSettings()}>

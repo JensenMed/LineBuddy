@@ -4,7 +4,7 @@ import images from '../components/images';
 import { StackParamList } from '../StackComponent';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
-
+import CheckBox from 'expo-checkbox';
 type Props = {
   navigation: NativeStackNavigationProp<StackParamList, 'LogIn'>;
   navigate: any;
@@ -13,6 +13,7 @@ type Props = {
 const SignUp = () => {
   // Sets user password
   const[password, setPassword] = useState();
+  const[isAdmin, setIsAdmin] = useState(false);
   const navigation = useNavigation<Props>();
 
   const handleSave = () => {
@@ -60,8 +61,16 @@ const SignUp = () => {
             <Text className= 'inset-x-0.5 left-2 text-sm text-white text-left mb-0.5'>Password</Text>
             <TextInput className ='bg-white top-90 relative rounded-full h-11' value ={password} onChangeText={setPassword}/>
         </View>
+        <View className = "relative inset-y-16 p-1">
+          <CheckBox
+          className = "h-8 w-8 bg-white"
+            onValueChange={() => setIsAdmin(!isAdmin)}
+            value={isAdmin}
+          />
+          <Text className = "text-xl text-white -inset-y-7 inset-x-12 font-bold">User is an Admin</Text>
+        </View>
       </View>
-      <View className = '-inset-y-36'>
+      <View className = '-inset-y-24'>
         <TouchableOpacity className = 'justify-center inset-x-10 text-center bg-LineBuddyPink w-4/5 h-16 rounded-full' onPress={() => handleSave()}>
             <Text className = 'text-lg text-white text-center'>Sign Up</Text>
         </TouchableOpacity>

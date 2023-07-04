@@ -21,7 +21,7 @@ const Stack = createNativeStackNavigator();
 const Component = () => {
   return (
     <View className = "h-screen ">
-      {/* <StackComponent /> */}
+      <StackComponent />
       {/* <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
@@ -33,7 +33,7 @@ const Component = () => {
     </NavigationContainer> */}
       {/* <Home/> */}
       {/* <SignUp/> */}
-      <Search/>
+      {/* <Search/> */}
       {/* <Admin/> */}
       {/* <Admin_Settings/> */}
       {/* <LogIn/> */}
