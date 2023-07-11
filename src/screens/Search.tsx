@@ -152,7 +152,6 @@ const Search = ({route}) => {
     }
   };
   const getPlacesData = async (url: string, i: number) => {
-    // const url = 'https://serpapi.com/search.json?engine=google_maps' + '&q=' + queryType + '&ll=' + userLatitude + ',' + userLongitude + ',15.1z&type=search&api_key=0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7'
     if (i >= 119) {
       return i;
     } else {
@@ -207,7 +206,10 @@ const Search = ({route}) => {
   const setPlacesView = async () => {
     try {
       let i = 0;
-      const url = 'https://serpapi.com/search.json?engine=google_maps' + '&q=' + queryType + '&ll=' + userLatitude + ',' + userLongitude + ',15.1z&type=search&api_key=0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7'
+      console.log(queryType)
+      console.log(userLatitude)
+      console.log(userLongitude)
+      const url = 'https://serpapi.com/search.json?engine=google_maps' + '&q=' + queryType + '&ll=@' + userLatitude + ',' + userLongitude + ',15.1z&type=search&api_key=0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7'
       let awaitVal = await getPlacesData(url, i);
     } catch (e) {
       console.log(e);
@@ -337,40 +339,26 @@ const Search = ({route}) => {
    * UseEffect calls requestPermissions function that gets the user's geolocation. This information is then
    * used to determine nerby places called via the setPlacesView function.
    */
+
+
+  const grabData = () => {
+    console.log("hhhh")
+    clearInterval(myTimer)
+  }
+
+  // const myTimer = setInterval(grabData(), 5000)
+
   useEffect(() => {
     if (requestPermissions()) {
-
-      // let myTimer = setInterval(myIterval, 5000);
-      // let counter = 0;
-      console.log("kkkk")
-      // const myIterval = () => {
-      //   console.log("Hello")
-      //   clearInterval(myTimer)
-      //   // console.log(counter)
-      //   // counter +=1;
-      //   // if(counter === 3){
-      //   //   console.log("3")
-      //   //   clear(myTimer)
-      //   // }
-      // }
-        // const myInterval = setInterval({
-        //   console.log("Hello")
-        //   clearInterval(myInterval)
-        // }, 1000)
-      // if(userLatitude === undefined){
-      //   Alert.alert("Error finding user latitude")
-      // }
-      // if(userLongitude === undefined){
-      //   Alert.alert("Error finding user longitude")
-      // }
-      // if(queryType === undefined){
-      //   Alert.alert("Please enter a query type")
-      // }
-      // else{
-      //   setPlacesView();
-      // }
+      if(userLatitude !== undefined && userLongitude !== undefined){
+        if(queryType !== undefined){
+          setPlacesView();
+        }else{
+          // Alert.alert("Please enter a query type")
+        }
+      }
     }
-  }, [queryType, markers]);
+  });
   return (
     <View className = "h-screen w-screen">
       {/* Map display */}

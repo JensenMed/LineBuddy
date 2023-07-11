@@ -28,18 +28,17 @@ type Props = {
 };
 
 
-const SearchAdmin = ({route}) => {
+const SearchAdmin = () => {
   const latitude = 37.773972;
   const longitude = -122.431297;
   let radius = 50000;
   const navigation = useNavigation<Props>();
 
-
   // const url =
   // "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longitude + "&radius=" + radius + "&key=" + "0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7"
 
   // const url = "https://serpapi.com/search.json?engine=google_maps" + "&q=pizza" + "&ll=@" + latitude + ","+ "-" + longitude + ",15.1z" + "&type=search" + "&api_key=" + "0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7"
-  const url = 'https://serpapi.com/search.json?engine=google_maps&q=pizza&ll=@42.9849,-81.2453,15.1z&type=search&api_key=0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7'
+  
 
 
   //Sets place type
@@ -48,6 +47,13 @@ const SearchAdmin = ({route}) => {
   const [placesTypeSelectedObj, setTypePlacesSelectedObj] = useState([{name: 'pizza', selected:'false'}, {name:'coffee', selected:'false'}])
   //sets query type for api
   const[queryType, setQueryType] = useState();
+
+
+
+  //if user selectes their business name
+  const[businessName, setBusinessName] = useState()
+  //if user selects their business name boolean
+  
 
   const[placeTypeValue, setPlaceTypeValue] = useState([]);
   const[selectedType, setSelectedPlaceType] = useState([])
@@ -82,6 +88,9 @@ const SearchAdmin = ({route}) => {
   const[mapOpened, setMapOpened] = useState(false);
   const [filteredPlaces, setFilteredPlaces] = useState([]);
   const [selectedValue, setSelectedValue] = useState({});
+
+  // const url = 'https://serpapi.com/search.json?engine=google_maps&q=pizza&ll=@42.9849,-81.2453,15.1z&type=search&api_key=0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7'
+  
 
   const requestPermissions = async () => {
     // Check permissions for Android devices
@@ -202,6 +211,7 @@ const SearchAdmin = ({route}) => {
   const setPlacesView = async () => {
     try {
       let i = 0;
+      const url = 'https://serpapi.com/search.json?engine=google_maps' + '&q=' + queryType + '&ll=@' + userLatitude + ',' + userLongitude + ',15.1z&type=search&api_key=0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7'
       let awaitVal = await getPlacesData(url, i);
     } catch (e) {
       console.log(e);
@@ -212,16 +222,22 @@ const SearchAdmin = ({route}) => {
    * @param query passed in from user input to autcomplete specified locations
    */
   const findPlace = (query: string) => {
-    if (query) {
-      // Making a case insensitive regular expression
-      const regex = new RegExp(`${query.trim()}`, 'i');
-      setFilteredPlaces(
-        nearbyPlacesNames.filter(e => e.search(regex) >= 0), // fix regex expression to take special characters
-      );
-    } else {
-      // If the query is null then return blank
-      setFilteredPlaces([]);
+
+    if(queryType !== undefined){
+      if (query) {
+        // Making a case insensitive regular expression
+        const regex = new RegExp(`${query.trim()}`, 'i');
+        setFilteredPlaces(
+          nearbyPlacesNames.filter(e => e.search(regex) >= 0), // fix regex expression to take special characters
+        );
+      } else {
+        // If the query is null then return blank
+        setFilteredPlaces([]);
+      }
+    }else{
+      Alert.alert("Please select a query type before searching")
     }
+   
   };
 
   const selectedPlaceType = (item: string) => {
@@ -325,9 +341,24 @@ const SearchAdmin = ({route}) => {
    * UseEffect calls requestPermissions function that gets the user's geolocation. This information is then
    * used to determine nerby places called via the setPlacesView function.
    */
+
+
+  const grabData = () => {
+    console.log("hhhh")
+    clearInterval(myTimer)
+  }
+
+  // const myTimer = setInterval(grabData(), 5000)
+
   useEffect(() => {
     if (requestPermissions()) {
-      setPlacesView();
+      if(userLatitude !== undefined && userLongitude !== undefined){
+        if(queryType !== undefined){
+          setPlacesView();
+        }else{
+          // Alert.alert("Please enter a query type")
+        }
+      }
     }
   });
   return (
@@ -385,6 +416,7 @@ const SearchAdmin = ({route}) => {
               <Text className = "text-center text-2xl text-white font-bold pr-8">Your current place type</Text>
               <Text className = "text-center text-2xl text-white font-bold pr-8 underline underline-offset-8 capitalize">{queryType}</Text>
             </View>
+        
         </View>}
       {settingsOpened == false && <TouchableOpacity onPress={() => handleSettings()}>
         <View className="h-12 w-14 bg-LineBuddyGray right-0 absolute inset-y-24 rounded-l-xl">
@@ -407,6 +439,7 @@ const SearchAdmin = ({route}) => {
         {/* Handles places in list and adds them to the markers if clicked*/}
         {mapOpened && 
           <View className = "h-5/6">
+
             <Autocomplete
               className="top-0"
               data={filteredPlaces}
@@ -420,6 +453,7 @@ const SearchAdmin = ({route}) => {
                       value={selectedPlaces.includes(item)}
                 /></View> 
                 }}
+
               onChangeText={text => findPlace(text)}
               placeholder="Enter the film title"
             />
