@@ -30,7 +30,7 @@ const SignUp = () => {
       } else if (password.search(/[,!,%,^,&,*,),*,@,(,]/) < 0) {
         Alert.alert("Your password needs at least one of these !,%,^,&,*,),*,@,( special characters");
       } else {
-        Alert.alert("Test")
+        // Alert.alert("Test")
         // add password to database but first check if email alreday exists and does not belong to same user
       }
     }catch(error){
@@ -40,6 +40,8 @@ const SignUp = () => {
 
   }
 
+
+  //to verufy that user is admin check to make sure that after te @ there is no gmail, yahoo, outlook.. etc
 
   return(
     <View className = 'bg-LineBuddyGray h-full'>
@@ -71,11 +73,11 @@ const SignUp = () => {
         </View>
       </View>
       <View className = '-inset-y-24'>
-        <TouchableOpacity className = 'justify-center inset-x-10 text-center bg-LineBuddyPink w-4/5 h-16 rounded-full' onPress={() => handleSave()}>
+        <TouchableOpacity className = 'justify-center inset-x-10 text-center bg-LineBuddyPink w-4/5 h-16 rounded-full' onPress={() => {handleSave(), navigation.navigate("Search", {isAdminValue:isAdmin})}}>
             <Text className = 'text-lg text-white text-center'>Sign Up</Text>
         </TouchableOpacity>
         <Text className = 'text-white text-center mt-4'>
-            Already have an account? <TouchableOpacity onPress = {() => navigation.navigate("LogIn")}><Text className = 'text-LineBuddyBlue underline text-align top-1'> Log in</Text></TouchableOpacity>
+            Already have an account? <TouchableOpacity onPress = {() => navigation.navigate("LogIn", {isAdmin})}><Text className = 'text-LineBuddyBlue underline text-align top-1'> Log in</Text></TouchableOpacity>
         </Text>
         
       </View>

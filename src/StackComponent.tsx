@@ -1,8 +1,9 @@
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
 import Home from './screens/Home';
-import {View, Text} from 'react-native'
+import {View, Text, Button} from 'react-native'
 import SignUp from './screens/SignUp';
 import Welcome from './screens/Welcome';
 import Admin_Settings from './screens/Admin_Settings';
@@ -10,7 +11,7 @@ import Admin from './screens/Admin';
 import Search from './screens/Search';
 import Settings from './screens/Settings';
 import LogIn from './screens/LogIn';
-
+import SearchAdmin from './screens/SearchAdmin';
 
 
 export type StackParamList = {
@@ -19,6 +20,9 @@ export type StackParamList = {
     Welcome:undefined;
     LogIn:undefined;
     Search:undefined;
+    Admin_Settings:undefined;
+    Settings:undefined;
+    SearchAdmin:undefined;
 }
 
 const Stack = createNativeStackNavigator();
@@ -27,7 +31,10 @@ const StackComponent = () => {
   return (
 
     <NavigationContainer>
-    <Stack.Navigator>
+    <Stack.Navigator  
+    screenOptions={{
+    headerShown: false
+      }}>
     {/* <Stack.Screen
         name="Home"
         component={Home}
@@ -39,6 +46,11 @@ const StackComponent = () => {
       <Stack.Screen
         name="SignUp"
         component={SignUp}
+        options={({ navigation, route }) => ({
+          headerLeft: () => (
+            <Button title="Update count" />
+          ),
+        })}
       />
       <Stack.Screen
         name="Search"
@@ -59,6 +71,11 @@ const StackComponent = () => {
       <Stack.Screen
         name="LogIn"
         component={LogIn}
+      />
+       <Stack.Screen
+        name="Search Admin"
+        component={SearchAdmin}
+        headerShown = {false}
       />
       {/* <Stack.Screen name="Profile" component={ProfileScreen} /> */}
     </Stack.Navigator>

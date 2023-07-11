@@ -28,19 +28,18 @@ type Props = {
 };
 
 
-const Search = ({route}) => {
+const SearchAdmin = ({route}) => {
   const latitude = 37.773972;
   const longitude = -122.431297;
   let radius = 50000;
   const navigation = useNavigation<Props>();
-  const {isAdminValue} = route.params
 
 
   // const url =
   // "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longitude + "&radius=" + radius + "&key=" + "0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7"
 
   // const url = "https://serpapi.com/search.json?engine=google_maps" + "&q=pizza" + "&ll=@" + latitude + ","+ "-" + longitude + ",15.1z" + "&type=search" + "&api_key=" + "0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7"
-  
+  const url = 'https://serpapi.com/search.json?engine=google_maps&q=pizza&ll=@42.9849,-81.2453,15.1z&type=search&api_key=0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7'
 
 
   //Sets place type
@@ -83,9 +82,6 @@ const Search = ({route}) => {
   const[mapOpened, setMapOpened] = useState(false);
   const [filteredPlaces, setFilteredPlaces] = useState([]);
   const [selectedValue, setSelectedValue] = useState({});
-
-  // const url = 'https://serpapi.com/search.json?engine=google_maps&q=pizza&ll=@42.9849,-81.2453,15.1z&type=search&api_key=0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7'
-  
 
   const requestPermissions = async () => {
     // Check permissions for Android devices
@@ -152,7 +148,6 @@ const Search = ({route}) => {
     }
   };
   const getPlacesData = async (url: string, i: number) => {
-    // const url = 'https://serpapi.com/search.json?engine=google_maps' + '&q=' + queryType + '&ll=' + userLatitude + ',' + userLongitude + ',15.1z&type=search&api_key=0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7'
     if (i >= 119) {
       return i;
     } else {
@@ -207,7 +202,6 @@ const Search = ({route}) => {
   const setPlacesView = async () => {
     try {
       let i = 0;
-      const url = 'https://serpapi.com/search.json?engine=google_maps' + '&q=' + queryType + '&ll=' + userLatitude + ',' + userLongitude + ',15.1z&type=search&api_key=0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7'
       let awaitVal = await getPlacesData(url, i);
     } catch (e) {
       console.log(e);
@@ -218,22 +212,16 @@ const Search = ({route}) => {
    * @param query passed in from user input to autcomplete specified locations
    */
   const findPlace = (query: string) => {
-
-    if(queryType !== undefined){
-      if (query) {
-        // Making a case insensitive regular expression
-        const regex = new RegExp(`${query.trim()}`, 'i');
-        setFilteredPlaces(
-          nearbyPlacesNames.filter(e => e.search(regex) >= 0), // fix regex expression to take special characters
-        );
-      } else {
-        // If the query is null then return blank
-        setFilteredPlaces([]);
-      }
-    }else{
-      Alert.alert("Please select a query type before searching")
+    if (query) {
+      // Making a case insensitive regular expression
+      const regex = new RegExp(`${query.trim()}`, 'i');
+      setFilteredPlaces(
+        nearbyPlacesNames.filter(e => e.search(regex) >= 0), // fix regex expression to take special characters
+      );
+    } else {
+      // If the query is null then return blank
+      setFilteredPlaces([]);
     }
-   
   };
 
   const selectedPlaceType = (item: string) => {
@@ -339,38 +327,9 @@ const Search = ({route}) => {
    */
   useEffect(() => {
     if (requestPermissions()) {
-
-      // let myTimer = setInterval(myIterval, 5000);
-      // let counter = 0;
-      console.log("kkkk")
-      // const myIterval = () => {
-      //   console.log("Hello")
-      //   clearInterval(myTimer)
-      //   // console.log(counter)
-      //   // counter +=1;
-      //   // if(counter === 3){
-      //   //   console.log("3")
-      //   //   clear(myTimer)
-      //   // }
-      // }
-        // const myInterval = setInterval({
-        //   console.log("Hello")
-        //   clearInterval(myInterval)
-        // }, 1000)
-      // if(userLatitude === undefined){
-      //   Alert.alert("Error finding user latitude")
-      // }
-      // if(userLongitude === undefined){
-      //   Alert.alert("Error finding user longitude")
-      // }
-      // if(queryType === undefined){
-      //   Alert.alert("Please enter a query type")
-      // }
-      // else{
-      //   setPlacesView();
-      // }
+      setPlacesView();
     }
-  }, [queryType, markers]);
+  });
   return (
     <View className = "h-screen w-screen">
       {/* Map display */}
@@ -426,20 +385,6 @@ const Search = ({route}) => {
               <Text className = "text-center text-2xl text-white font-bold pr-8">Your current place type</Text>
               <Text className = "text-center text-2xl text-white font-bold pr-8 underline underline-offset-8 capitalize">{queryType}</Text>
             </View>
-            
-            {isAdminValue && <View className = '-inset-y-52'>
-              <TouchableOpacity className = 'justify-center inset-x-5 text-center bg-LineBuddyPink w-4/5 h-16 rounded-full' onPress={() => navigation.navigate('Admin Settings')}>
-                  <Text className = 'text-lg text-white text-center'>Admin Settings</Text>
-              </TouchableOpacity>
-        
-            </View>}
-            {isAdminValue === false && <View className = '-inset-y-52'>
-              <TouchableOpacity className = 'justify-center inset-x-5 text-center bg-LineBuddyPink w-4/5 h-16 rounded-full' onPress={() => navigation.navigate('Settings')}>
-                  <Text className = 'text-lg text-white text-center'>Settings</Text>
-              </TouchableOpacity>
-        
-            </View>}
-        
         </View>}
       {settingsOpened == false && <TouchableOpacity onPress={() => handleSettings()}>
         <View className="h-12 w-14 bg-LineBuddyGray right-0 absolute inset-y-24 rounded-l-xl">
@@ -462,7 +407,6 @@ const Search = ({route}) => {
         {/* Handles places in list and adds them to the markers if clicked*/}
         {mapOpened && 
           <View className = "h-5/6">
-
             <Autocomplete
               className="top-0"
               data={filteredPlaces}
@@ -476,7 +420,6 @@ const Search = ({route}) => {
                       value={selectedPlaces.includes(item)}
                 /></View> 
                 }}
-
               onChangeText={text => findPlace(text)}
               placeholder="Enter the film title"
             />
@@ -490,4 +433,4 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
   },
 });
-export default Search;
+export default SearchAdmin;
