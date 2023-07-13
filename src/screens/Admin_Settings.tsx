@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, Image, Button, TouchableOpacity, StyleSheet, TextInput, PermissionsAndroid, Platform, Alert, SafeAreaView,FlatList} from 'react-native';
 import images from '../components/images';
 import { StackParamList } from '../StackComponent';
@@ -32,7 +32,7 @@ const Admin_Settings = () => {
   const navigation = useNavigation<Props>();
 
   //Value if user selects business they own.
-  const[businessSelected, setBusinessSelected] = useState();
+  const[businessSelected, setBusinessSelected] = useState([]);
 
   // value if user selects a business they own boolean
   const[usersBusiness, setUsersBusiness] = useState(false)
@@ -56,6 +56,12 @@ const Admin_Settings = () => {
 
 
    }
+
+   useEffect(() => {
+    console.log(businessSelected)
+    // console.log(setUsersBusiness)
+
+   }, [businessSelected])
   return(
     <View className = 'bg-LineBuddyGray h-full'>
 
@@ -75,7 +81,7 @@ const Admin_Settings = () => {
       <View>
 
       <View>
-          <TouchableOpacity onPress={() => navigation.navigate('Search Admin')} className="justify-center bg-LineBuddyPink rounded-full h-12 inset-y-4 w-3/4 flex items-center inset-x-10 ">
+          <TouchableOpacity onPress={() => navigation.navigate('Search Admin', {usersBusiness:usersBusiness, businessSelected:businessSelected})} className="justify-center bg-LineBuddyPink rounded-full h-12 inset-y-4 w-3/4 flex items-center inset-x-10 ">
             <Text className="text-white text-center text-lg">Please select your business</Text>
           </TouchableOpacity>
         </View>

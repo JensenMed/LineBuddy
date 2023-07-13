@@ -28,11 +28,14 @@ type Props = {
 };
 
 
-const SearchAdmin = () => {
+const SearchAdmin = ({route}) => {
   const latitude = 37.773972;
   const longitude = -122.431297;
   let radius = 50000;
   const navigation = useNavigation<Props>();
+  const {usersBusiness, businessSelected} = route.params
+  // let setUsersBusiness = route.params.setUsersBusiness
+  // console.log(businessSelected)
 
   // const url =
   // "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longitude + "&radius=" + radius + "&key=" + "0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7"
@@ -293,6 +296,15 @@ const SearchAdmin = () => {
     // Will add value to selectedPlaces array if testVal is true (value is selected) and it is not already included in the array
     if (testVal && selectedPlaces.includes(item) === false) {
       // Adds value to selecetedPlaces Array
+      // businessSelected.push(item);
+      // setBusinessSelected(selectedPlaces)
+      // console.log(item)
+      // businessSelected.push(item);
+      // console.log(item)
+      // businessSelected
+      businessSelected.push(item);
+      // setUsersBusiness = !usersBusiness
+      // console.log(businessSelected)
       selectedPlaces.push(item);
       setSelectedPlaces(selectedPlaces);
       //Iterates through selectedPlaces array and adds value to marker if not already sin there
@@ -329,6 +341,7 @@ const SearchAdmin = () => {
       let removeMarker = markers.filter(marker => marker.title + " " + marker.address != item)
       setMarkers(removeMarker)
       let arrVal = selectedPlaces.filter(places => places != item);// get marker value to be removed and added to markers without duplicates
+      // setBusinessSelected(arrVal)
       setSelectedPlaces(arrVal);
     }
   };
@@ -416,6 +429,11 @@ const SearchAdmin = () => {
               <Text className = "text-center text-2xl text-white font-bold pr-8">Your current place type</Text>
               <Text className = "text-center text-2xl text-white font-bold pr-8 underline underline-offset-8 capitalize">{queryType}</Text>
             </View>
+            
+            <TouchableOpacity className = 'bg-LineBuddyPink rounded-full h-16 w-3/4 absolute inset-y-2/3 text-center inset-x-6 justify-center' onPress={() => navigation.navigate('Admin Settings')}> 
+            {/* Pass values back into navigatuon params and add back plus save Alert befire clicking save button */}
+                  <Text className = 'text-lg text-white text-center'>Save</Text>
+            </TouchableOpacity>
         
         </View>}
       {settingsOpened == false && <TouchableOpacity onPress={() => handleSettings()}>
