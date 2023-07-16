@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react'
-import {StyleSheet, Text, View, PermissionsAndroid, Button, Platform, Alert, SafeAreaView, TouchableOpacity, FlatList} from 'react-native';
+import {StyleSheet, Text, View, PermissionsAndroid, Button, Platform, Alert, SafeAreaView, TouchableOpacity, FlatList, Image} from 'react-native';
 // import REACT_APP_API_KEY from '.env'
 // import CheckBox from '@react-native-community/checkbox';
 import CheckBox from 'expo-checkbox';
@@ -16,6 +16,8 @@ import Triangle from 'react-native-triangle';
 import { StackParamList } from '../StackComponent';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
+import images from '../components/images';
+// import { Image } from 'react-native-elements';
 
 // interface nearbyPlacesNames ={
 //   nearbyPlacesNames: string[];
@@ -33,7 +35,9 @@ const SearchAdmin = ({route}) => {
   const longitude = -122.431297;
   let radius = 50000;
   const navigation = useNavigation<Props>();
-  const {usersBusiness, businessSelected} = route.params
+  const[usersBusiness, setUsersBusiness] = useState();
+
+  // const {usersBusiness, businessSelected} = route.params
   // let setUsersBusiness = route.params.setUsersBusiness
   // console.log(businessSelected)
 
@@ -56,6 +60,7 @@ const SearchAdmin = ({route}) => {
   //if user selectes their business name
   const[businessName, setBusinessName] = useState()
   //if user selects their business name boolean
+  const[businessSelected, setBusinessSelected] = useState(false)
   
 
   const[placeTypeValue, setPlaceTypeValue] = useState([]);
@@ -302,7 +307,7 @@ const SearchAdmin = ({route}) => {
       // businessSelected.push(item);
       // console.log(item)
       // businessSelected
-      businessSelected.push(item);
+      // businessSelected.push(item);
       // setUsersBusiness = !usersBusiness
       // console.log(businessSelected)
       selectedPlaces.push(item);
@@ -350,6 +355,26 @@ const SearchAdmin = ({route}) => {
     setSettingsOpened(!settingsOpened);
   }
 
+
+  const validateSave = () => {
+    let isVal = false
+    Alert.alert('Are you sure you want to continue?', 'You will not be able to change this value prior to submission', [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      {text: 'OK', onPress: () => {setBusinessSelected(true), navigation.navigate('Admin Settings')}},
+    ]);
+    console.log(businessSelected)
+    if(businessSelected){
+      return true;
+    }else{
+      return false
+    }
+
+
+  }
+
   /**
    * UseEffect calls requestPermissions function that gets the user's geolocation. This information is then
    * used to determine nerby places called via the setPlacesView function.
@@ -376,6 +401,9 @@ const SearchAdmin = ({route}) => {
   });
   return (
     <View className = "h-screen w-screen">
+      <TouchableOpacity className = "z-10 h-10 w-1/6 bg-black rounded-r-md justify-center" onPress ={() => navigation.navigate('Admin Settings')}>
+        <Text className="text-center font-bold text-white">Back</Text>
+      </TouchableOpacity>
       {/* Map display */}
       <MapView
         style={styles.map}
@@ -430,7 +458,7 @@ const SearchAdmin = ({route}) => {
               <Text className = "text-center text-2xl text-white font-bold pr-8 underline underline-offset-8 capitalize">{queryType}</Text>
             </View>
             
-            <TouchableOpacity className = 'bg-LineBuddyPink rounded-full h-16 w-3/4 absolute inset-y-2/3 text-center inset-x-6 justify-center' onPress={() => navigation.navigate('Admin Settings')}> 
+            <TouchableOpacity className = 'bg-LineBuddyPink rounded-full h-16 w-3/4 absolute inset-y-2/3 text-center inset-x-6 justify-center' onPress={() => validateSave() ? navigation.navigate('Admin Settings'): console.log(businessSelected)}> 
             {/* Pass values back into navigatuon params and add back plus save Alert befire clicking save button */}
                   <Text className = 'text-lg text-white text-center'>Save</Text>
             </TouchableOpacity>

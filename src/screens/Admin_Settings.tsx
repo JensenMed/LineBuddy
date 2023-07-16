@@ -27,7 +27,7 @@ type Props = {
   navigate: any;
 };
 
-const Admin_Settings = () => {
+const Admin_Settings = ({route}) => {
 
   const navigation = useNavigation<Props>();
 
@@ -64,6 +64,9 @@ const Admin_Settings = () => {
    }, [businessSelected])
   return(
     <View className = 'bg-LineBuddyGray h-full'>
+      <TouchableOpacity className = "z-10 h-10 w-1/6 bg-black rounded-r-md justify-center" onPress ={() => navigation.navigate('Search')}>
+        <Text className="text-center font-bold text-white">Back</Text>
+      </TouchableOpacity>
 
      {/* When they clicj button will tak ethem to Search Admin page where they will fill out their business info and data */}
 
