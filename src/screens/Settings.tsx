@@ -17,6 +17,8 @@ type Props = {
 
 const Settings = () => {
 
+  const navigation = useNavigation<Props>();
+
 
   //value of slider
   const[sliderValue, setSliderValue] = useState();
@@ -68,6 +70,9 @@ const Settings = () => {
 
   return(
     <View className = 'bg-LineBuddyGray h-full'>
+      <TouchableOpacity className = "z-10 h-10 w-1/6 bg-black rounded-r-md justify-center absolute" onPress ={() => navigation.navigate('Search', {isAdminValue:false})}>
+          <Text className="text-center font-bold text-white">Back</Text>
+        </TouchableOpacity>
         <TouchableOpacity onPress={() => handleImages()}>
           <View className = {profilePicture == null? "h-3/6 w-3/6 bg-white rounded-full inset-x-24 flex inset-y-20": "h-3/6 w-3/6 bg-transparent rounded-full inset-x-24 flex inset-y-20"} >
             {profilePicture && (profilePicture == null ? <Image className = "h-3/6 w-3/6 relative inset-y-12 inset-x-12" source={images.CameraIcon}/>:

@@ -35,7 +35,7 @@ const SearchAdmin = ({route}) => {
   const longitude = -122.431297;
   let radius = 50000;
   const navigation = useNavigation<Props>();
-  const[usersBusiness, setUsersBusiness] = useState();
+  const[usersBusiness, setUsersBusiness] = useState([]);
 
   // const {usersBusiness, businessSelected} = route.params
   // let setUsersBusiness = route.params.setUsersBusiness
@@ -310,6 +310,7 @@ const SearchAdmin = ({route}) => {
       // businessSelected.push(item);
       // setUsersBusiness = !usersBusiness
       // console.log(businessSelected)
+      usersBusiness.push(item);
       selectedPlaces.push(item);
       setSelectedPlaces(selectedPlaces);
       //Iterates through selectedPlaces array and adds value to marker if not already sin there
@@ -363,7 +364,7 @@ const SearchAdmin = ({route}) => {
         text: 'Cancel',
         style: 'cancel',
       },
-      {text: 'OK', onPress: () => {setBusinessSelected(true), navigation.navigate('Admin Settings')}},
+      {text: 'OK', onPress: () => {setBusinessSelected(true), navigation.navigate('Admin Settings', {usersBusinessVal:"Hello"})}},
     ]);
     console.log(businessSelected)
     if(businessSelected){

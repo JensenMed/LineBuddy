@@ -14,6 +14,7 @@ type Props = {
 };
 
 const Admin = () => {
+  const navigation = useNavigation<Props>();
 
   //value of slider
   const[sliderValue, setSliderValue] = useState();
@@ -23,8 +24,11 @@ const Admin = () => {
   return(
     <View className = 'bg-LineBuddyGray h-full'>
       <View className = 'bg-white h-2/6 rounded-bl-[20px] rounded-br-[20px]'>
-        <Image source = {images.LineBuddyBalloon} className='h-40 w-40 rotate-180 -top-20 -left-10'></Image>
+        <Image source = {images.LineBuddyBalloon} className='h-40 w-40 rotate-180 -top-20 left-3/4'></Image>
         <Text className = 'text-7xl font-bold text-LineBuddyBlue flex text-center -top-1/4'>Admin</Text>
+        <TouchableOpacity className = "z-10 h-10 w-1/6 bg-black rounded-r-md justify-center absolute" onPress ={() => navigation.navigate('Search', {isAdminValue:true})}>
+          <Text className="text-center font-bold text-white">Back</Text>
+        </TouchableOpacity>
       </View>
       <View className="h-20 inset-y-8">
         <Text className ="text-center text-xl text-LineBuddyPink font-bold">Jacks bar and Grill</Text>

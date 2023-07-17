@@ -411,17 +411,26 @@ const Search = ({route}) => {
               placeholder="Enter the film title"
             />
             <View className = "top-1/2 absolute inset-x-2">
-              <Text className = "text-center text-2xl text-white font-bold pr-8">Your current place type</Text>
-              <Text className = "text-center text-2xl text-white font-bold pr-8 underline underline-offset-8 capitalize">{queryType}</Text>
+              <Text className = "text-center text-2xl text-white font-bold pr-8 -inset-y-32">Your current place type</Text>
+              <Text className = "text-center text-2xl text-white font-bold pr-8 underline underline-offset-8 capitalize -inset-y-32">{queryType}</Text>
             </View>
             
             {isAdminValue && <View className = '-inset-y-52'>
+              <TouchableOpacity className = 'justify-center inset-x-5 text-center bg-LineBuddyPink w-4/5 h-16 rounded-full -inset-y-7' onPress={() => navigation.navigate('LogIn')}>
+                  <Text className = 'text-lg text-white text-center'>Sign out</Text>
+              </TouchableOpacity>
+              <TouchableOpacity className = 'justify-center inset-x-5 text-center bg-LineBuddyBlue w-4/5 h-16 rounded-full -inset-y-3.5' onPress={() => navigation.navigate('Admin')}>
+                  <Text className = 'text-lg text-white text-center'>My Business</Text>
+              </TouchableOpacity>
               <TouchableOpacity className = 'justify-center inset-x-5 text-center bg-LineBuddyPink w-4/5 h-16 rounded-full' onPress={() => navigation.navigate('Admin Settings')}>
                   <Text className = 'text-lg text-white text-center'>Admin Settings</Text>
               </TouchableOpacity>
         
             </View>}
             {isAdminValue === false && <View className = '-inset-y-52'>
+              <TouchableOpacity className = 'justify-center inset-x-5 text-center bg-LineBuddyBlue w-4/5 h-16 rounded-full -inset-y-5' onPress={() => navigation.navigate('LogIn')}>
+                  <Text className = 'text-lg text-white text-center'>Sign out</Text>
+              </TouchableOpacity>
               <TouchableOpacity className = 'justify-center inset-x-5 text-center bg-LineBuddyPink w-4/5 h-16 rounded-full' onPress={() => navigation.navigate('Settings')}>
                   <Text className = 'text-lg text-white text-center'>Settings</Text>
               </TouchableOpacity>
