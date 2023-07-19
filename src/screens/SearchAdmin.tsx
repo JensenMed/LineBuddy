@@ -291,7 +291,8 @@ const SearchAdmin = ({route}) => {
   const selectedPlacesObj = (item: string) => {
     let objLocation = 0;
     let testVal = false;
-    // When user selects value to be put into array
+    if(selectedPlaces.length < 1){
+      // When user selects value to be put into array
     selectedPlacesArray.map(obj => {
       if (obj.name === item) {
         obj.selected = !obj.selected;
@@ -301,55 +302,62 @@ const SearchAdmin = ({route}) => {
     // Will add value to selectedPlaces array if testVal is true (value is selected) and it is not already included in the array
     if (testVal && selectedPlaces.includes(item) === false) {
       // Adds value to selecetedPlaces Array
-      // businessSelected.push(item);
-      // setBusinessSelected(selectedPlaces)
-      // console.log(item)
-      // businessSelected.push(item);
-      // console.log(item)
-      // businessSelected
-      // businessSelected.push(item);
-      // setUsersBusiness = !usersBusiness
-      // console.log(businessSelected)
-      usersBusiness.push(item);
-      selectedPlaces.push(item);
-      setSelectedPlaces(selectedPlaces);
-      //Iterates through selectedPlaces array and adds value to marker if not already sin there
-      selectedPlaces.map((place) => {
-        let inSelcted = nearbyPlacesNames.indexOf(place);
-        objLocation = inSelcted;
-        let placeSelected = nearbyPlacesObjs[inSelcted]; // grabs value from nearbyPlacesObj via index
-        let itemFound = false;
-        //checks if already in markers
-        for( let i = 0; i < markers.length; i++ ){
-          if (markers[i].title + ' ' + placeSelected.address === item) {
-            itemFound = true;
+      // usersBusiness.push(item);
+        selectedPlaces.push(item);
+        setSelectedPlaces(selectedPlaces);
+        //Iterates through selectedPlaces array and adds value to marker if not already sin there
+        selectedPlaces.map((place) => {
+          let inSelcted = nearbyPlacesNames.indexOf(place);
+          objLocation = inSelcted;
+          let placeSelected = nearbyPlacesObjs[inSelcted]; // grabs value from nearbyPlacesObj via index
+          let itemFound = false;
+          //checks if already in markers
+          for( let i = 0; i < markers.length; i++ ){
+            if (markers[i].title + ' ' + placeSelected.address === item) {
+              itemFound = true;
+            }
           }
-        }
-        // if not found then add to markers
-        if (itemFound === false) {
-          let randomKey = Math.floor(Math.random() * 10000) + 1;
-          setMarkers([
-            ...markers,
-            {
-              key: randomKey,
-              title: placeSelected.title,
-              latitude: placeSelected.gps_coordinates.latitude,
-              longitude: placeSelected.gps_coordinates.longitude,
-              description: placeSelected.type,
-              address: placeSelected.address,
-            },
-          ]);
-        }
-      });
-    } else if (testVal && selectedPlaces.includes(item) === true) {
-      // dont do anything just acknowledge that its already in the array
-    } else {
+          // if not found then add to markers
+          if (itemFound === false) {
+            let randomKey = Math.floor(Math.random() * 10000) + 1;
+            setMarkers([
+              ...markers,
+              {
+                key: randomKey,
+                title: placeSelected.title,
+                latitude: placeSelected.gps_coordinates.latitude,
+                longitude: placeSelected.gps_coordinates.longitude,
+                description: placeSelected.type,
+                address: placeSelected.address,
+              },
+            ]);
+          }
+        });
+      } else if (testVal && selectedPlaces.includes(item) === true) {
+        // dont do anything just acknowledge that its already in the array
+      } else {
+        let removeMarker = markers.filter(marker => marker.title + " " + marker.address != item)
+        setMarkers(removeMarker)
+        let arrVal = selectedPlaces.filter(places => places != item);// get marker value to be removed and added to markers without duplicates
+        // setBusinessSelected(arrVal)
+        setSelectedPlaces(arrVal);
+    }
+
+
+
+
+
+    }else{
       let removeMarker = markers.filter(marker => marker.title + " " + marker.address != item)
       setMarkers(removeMarker)
       let arrVal = selectedPlaces.filter(places => places != item);// get marker value to be removed and added to markers without duplicates
       // setBusinessSelected(arrVal)
       setSelectedPlaces(arrVal);
+      if(arrVal.length != 0){
+        Alert.alert("You are only allowed to select one business. Please remove your previous value in order to proceed.")
+      }
     }
+     
   };
 
   const handleSettings = () => {
@@ -364,7 +372,7 @@ const SearchAdmin = ({route}) => {
         text: 'Cancel',
         style: 'cancel',
       },
-      {text: 'OK', onPress: () => {setBusinessSelected(true), navigation.navigate('Admin Settings', {usersBusinessVal:"Hello"})}},
+      {text: 'OK', onPress: () => {selectedPlaces.length == 1 ? navigation.navigate('Admin Settings', {usersBusinessVal:"Hellop"}): Alert.alert("Please select a business to continue")}},
     ]);
     console.log(businessSelected)
     if(businessSelected){

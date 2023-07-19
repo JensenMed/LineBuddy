@@ -36,6 +36,8 @@ const Admin_Settings = ({route}) => {
 
   // value if user selects a business they own boolean
   // const[usersBusiness, setUsersBusiness] = useState(false)
+  const{usersBusinessVal} = route.params
+  console.log(usersBusinessVal)
 
   //value of slider
   const[sliderValue, setSliderValue] = useState();
@@ -56,11 +58,6 @@ const Admin_Settings = ({route}) => {
   //Handles pop up when user clicks on setting business
    const handleClick = () => {
     setPageOpened(true)
-
-
-
-
-
    }
 
    useEffect(() => {
