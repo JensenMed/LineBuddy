@@ -152,18 +152,13 @@ const Search = ({route}) => {
     }
   };
   const getPlacesData = async (url: string, i: number) => {
-    console.log("kkkkk;;")
     if (i >= 119) {
       return i;
     } else {
       try {
-        console.log("jjjj")
         let a = 0;
-        console.log(url)
         let res = await axios.get(url);
-        console.log("jjjj22")
         let nextPageUrl = res.data.serpapi_pagination.next + '&api_key=0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7';
-        console.log("hhhh")
 
         // Checks if there is a next page token
         if (nextPageUrl !== undefined) {
@@ -215,8 +210,9 @@ const Search = ({route}) => {
       console.log(queryType)
       console.log(userLatitude)
       console.log(userLongitude)
-      const url = 'https://serpapi.com/search.json?engine=google_maps' + '&q=' + queryType + '&ll=@' + userLatitude + ',' + userLongitude + ',15.1z&type=search&api_key=0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7'
-      console.log("kkkkk")
+      // dont delete this , WE WILL USE THIS USL IT JUST DOESNT WORK FOR ANDROID
+      // const url = 'https://serpapi.com/search.json?engine=google_maps' + '&q=' + queryType + '&ll=@' + userLatitude + ',' + userLongitude + ',15.1z&type=search&api_key=0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7'
+      const url = "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=en&ll=%4042.9849%2C-81.2453%2C15.1z&q=pizza&start=20&type=search&api_key=0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7"
       let awaitVal = await getPlacesData(url, i);
     } catch (e) {
       console.log(e);
@@ -429,7 +425,7 @@ const Search = ({route}) => {
               <TouchableOpacity className = 'justify-center inset-x-5 text-center bg-LineBuddyBlue w-4/5 h-16 rounded-full -inset-y-3.5' onPress={() => navigation.navigate('Admin')}>
                   <Text className = 'text-lg text-white text-center'>My Business</Text>
               </TouchableOpacity>
-              <TouchableOpacity className = 'justify-center inset-x-5 text-center bg-LineBuddyPink w-4/5 h-16 rounded-full' onPress={() => navigation.navigate('Admin Settings', {usersBusinessVal:"Hello"})}>
+              <TouchableOpacity className = 'justify-center inset-x-5 text-center bg-LineBuddyPink w-4/5 h-16 rounded-full' onPress={() => navigation.navigate('Admin Settings', {usersBusinessVal:undefined})}>
                   <Text className = 'text-lg text-white text-center'>Admin Settings</Text>
               </TouchableOpacity>
         

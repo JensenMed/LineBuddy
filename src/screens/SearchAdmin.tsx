@@ -219,7 +219,9 @@ const SearchAdmin = ({route}) => {
   const setPlacesView = async () => {
     try {
       let i = 0;
-      const url = 'https://serpapi.com/search.json?engine=google_maps' + '&q=' + queryType + '&ll=@' + userLatitude + ',' + userLongitude + ',15.1z&type=search&api_key=0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7'
+      //DONT DELETE THIS
+      // const url = 'https://serpapi.com/search.json?engine=google_maps' + '&q=' + queryType + '&ll=@' + userLatitude + ',' + userLongitude + ',15.1z&type=search&api_key=0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7'
+      const url = "https://serpapi.com/search.json?engine=google_maps&google_domain=google.com&hl=en&ll=%4042.9849%2C-81.2453%2C15.1z&q=pizza&start=20&type=search&api_key=0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7"
       let awaitVal = await getPlacesData(url, i);
     } catch (e) {
       console.log(e);
@@ -372,9 +374,8 @@ const SearchAdmin = ({route}) => {
         text: 'Cancel',
         style: 'cancel',
       },
-      {text: 'OK', onPress: () => {selectedPlaces.length == 1 ? navigation.navigate('Admin Settings', {usersBusinessVal:"Hellop"}): Alert.alert("Please select a business to continue")}},
+      {text: 'OK', onPress: () => {selectedPlaces.length == 1 ? navigation.navigate('Admin Settings', {usersBusinessVal:selectedPlaces[0]}): navigation.navigate('Admin Settings', {usersBusinessVal:selectedPlaces[0]})}},
     ]);
-    console.log(businessSelected)
     if(businessSelected){
       return true;
     }else{
@@ -410,7 +411,7 @@ const SearchAdmin = ({route}) => {
   });
   return (
     <View className = "h-screen w-screen">
-      <TouchableOpacity className = "z-10 h-10 w-1/6 bg-black rounded-r-md justify-center" onPress ={() => navigation.navigate('Admin Settings')}>
+      <TouchableOpacity className = "z-10 h-10 w-1/6 bg-black rounded-r-md justify-center" onPress ={() => navigation.navigate('Admin Settings', {usersBusinessVal:undefined})}>
         <Text className="text-center font-bold text-white">Back</Text>
       </TouchableOpacity>
       {/* Map display */}

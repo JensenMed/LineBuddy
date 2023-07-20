@@ -37,7 +37,10 @@ const Admin_Settings = ({route}) => {
   // value if user selects a business they own boolean
   // const[usersBusiness, setUsersBusiness] = useState(false)
   const{usersBusinessVal} = route.params
-  console.log(usersBusinessVal)
+  // if(usersBusinessVal === undefined){
+  //   console.log("kkkkk")
+  // }
+  // console.log(usersBusinessVal)
 
   //value of slider
   const[sliderValue, setSliderValue] = useState();
@@ -77,7 +80,7 @@ const Admin_Settings = ({route}) => {
         
         </View>} */}
 
-      <View className = 'bg-white h-2/6 rounded-bl-[20px] rounded-br-[20px]'>
+      <View className = 'bg-white  rounded-bl-[20px] rounded-br-[20px]'>
         <Image source = {images.LineBuddyBalloon} className='h-40 w-40 rotate-180 -top-20 left-3/4'></Image>
         <Text className = 'text-7xl font-bold text-LineBuddyBlue flex text-center -top-1/4'>Admin</Text>
         <TouchableOpacity className = "z-10 h-10 w-1/6 bg-black rounded-r-md justify-center absolute" onPress ={() => navigation.navigate('Search', {isAdminValue: true})}>
@@ -87,9 +90,13 @@ const Admin_Settings = ({route}) => {
       <View>
 
       <View>
-          <TouchableOpacity onPress={() => navigation.navigate('Search Admin')} className="justify-center bg-LineBuddyPink rounded-full h-12 inset-y-4 w-3/4 flex items-center inset-x-10 ">
-            <Text className="text-white text-center text-lg">Please select your business</Text>
+        {usersBusinessVal !== undefined &&  <View><TouchableOpacity onPress={() => navigation.navigate('Admin', {usersBusinessVal:usersBusinessVal})} className="justify-center bg-LineBuddyBlue rounded-full h-12 inset-y-3 w-3/4 flex items-center inset-x-12 ">
+            <Text className="text-white text-center text-lg">Edit your business</Text>
           </TouchableOpacity>
+          <Text className = "text-white text-lg font-bold flex text-center inset-y-6">Your business has been selected.</Text></View>}
+          {usersBusinessVal === undefined && <View><TouchableOpacity onPress={() => navigation.navigate('Search Admin')} className="justify-center bg-LineBuddyPink rounded-full h-12 inset-y-6 w-3/4 flex items-center inset-x-12 ">
+            <Text className="text-white text-center text-lg">Please select your business</Text>
+          </TouchableOpacity></View>}
         </View>
       </View>
 
