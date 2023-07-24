@@ -1,0 +1,6 @@
+module Pods_LineBuddy {
+  umbrella header "Pods-LineBuddy-umbrella.h"
+
+  export *
+  module * { export * }
+}
