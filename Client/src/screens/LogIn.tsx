@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {View, Text, Image, Button, TouchableOpacity, TextInput} from 'react-native';
 import images from '../components/images';
 import { StackParamList } from '../StackComponent';
@@ -10,8 +10,31 @@ type Props = {
   navigate: any;
 };
 
+
+
+
+
 const LogIn = () => {
   const navigation = useNavigation<Props>();
+  const[email, setEmail] = useState('');
+  const[password, setPassword] = useState('');
+
+
+  const handleLogin = async (emailVal, passwordVal) => {
+    
+
+    
+
+  }
+
+
+
+
+
+
+
+
+
   return(
     <View className = 'bg-LineBuddyGray h-full'>
       <View className = 'bg-white h-1/4 rounded-bl-[20px] rounded-br-[20px]'>
@@ -22,15 +45,17 @@ const LogIn = () => {
       <View className ='h-2/3 w-4/5 relative inset-x-10 inset-y-12' >
         <View className= 'inset-y-10 relative mb-6'>
             <Text className= 'inset-x-0.5 left-2 text-sm text-white text-left mb-0.5'>Email</Text>
-            <TextInput className ='bg-white top-90 relative rounded-full h-11'/>
+            <TextInput className ='bg-white top-90 relative rounded-full h-11' value={email} onChangeText={setEmail}/>
         </View>
         <View className = 'inset-y-10 relative'>
             <Text className= 'inset-x-0.5 left-2 text-sm text-white text-left mb-0.5'>Password</Text>
-            <TextInput className ='bg-white top-90 relative rounded-full h-11'/>
+            <TextInput className ='bg-white top-90 relative rounded-full h-11' value={password} onChangeText={setPassword}/>
         </View>
       </View>
       <View className = '-inset-y-52'>
-        <TouchableOpacity className = 'justify-center inset-x-10 text-center bg-LineBuddyBlue w-4/5 h-16 rounded-full' onPress={() => navigation.navigate('Search')}>
+        {/* <TouchableOpacity className = 'justify-center inset-x-10 text-center bg-LineBuddyBlue w-4/5 h-16 rounded-full' onPress={() => navigation.navigate('Search')}> */} 
+        {/* When login is all good add this in to direct to Serach page */}
+        <TouchableOpacity className = 'justify-center inset-x-10 text-center bg-LineBuddyBlue w-4/5 h-16 rounded-full' onPress={() => handleLogin(email, password)}>
             <Text className = 'text-lg text-white text-center'>Login</Text>
         </TouchableOpacity>
         <Text className = 'text-white text-center mt-4'>

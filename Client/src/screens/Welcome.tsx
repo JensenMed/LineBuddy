@@ -1,17 +1,47 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, Image, Button, TouchableOpacity} from 'react-native';
 import images from '../components/images';
 import { StackParamList } from '../StackComponent';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
 type Props = {
   navigation: NativeStackNavigationProp<StackParamList, 'Welcome'>;
   navigate: any;
 };
 
+
+
 const Welcome = () => {
+
   const navigation = useNavigation<Props>();
+
+  const handleStuff = async () => {
+    try{
+      const res = await axios.get("http://192.168.86.38:3000/api")
+      console.log(res.data)
+  
+    }catch(e){
+      console.log(e)
+    }
+  }
+
+  useEffect(() => {
+      handleStuff()
+      // try{
+      //   fetch("/api").then(
+      //     response => response.json()
+      //     ).then(
+      //       data =>{
+      //         console.log(data)
+      //       } 
+      //     )
+      // }catch(e){
+      //   console.log(e)
+      // }
+
+  }, [])
   return(
     <View className = 'bg-LineBuddyGray h-full'>
       <View className = 'bg-white h-2/6 rounded-bl-[20px] rounded-br-[20px]'>
