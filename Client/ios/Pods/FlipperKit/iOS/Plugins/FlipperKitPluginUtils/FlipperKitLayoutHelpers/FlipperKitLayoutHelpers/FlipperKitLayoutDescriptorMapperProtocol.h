@@ -1,22 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#import <Foundation/Foundation.h>
-
-@class SKNodeDescriptor;
-
-@protocol SKDescriptorMapperProtocol<NSObject>
-
-- (instancetype)initWithDefaults;
-
-- (SKNodeDescriptor*)descriptorForClass:(Class)cls;
-
-- (void)registerDescriptor:(SKNodeDescriptor*)descriptor forClass:(Class)cls;
-
-- (NSArray<SKNodeDescriptor*>*)allDescriptors;
-
-@end
+version https://git-lfs.github.com/spec/v1
+oid sha256:47a51ed0b7a85251d42f07bbaaf88fdf019077be28cf2142961cb7e255e5d8bd
+size 518

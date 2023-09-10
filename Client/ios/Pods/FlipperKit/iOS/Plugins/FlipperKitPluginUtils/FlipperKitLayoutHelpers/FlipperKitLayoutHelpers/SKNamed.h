@@ -1,17 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#import <Foundation/Foundation.h>
-
-@interface SKNamed<__covariant T> : NSObject
-
-+ (instancetype)newWithName:(NSString*)name withValue:(T)value;
-
-@property(nonatomic, readonly) NSString* name;
-@property(nonatomic, readonly) T value;
-
-@end
+version https://git-lfs.github.com/spec/v1
+oid sha256:11cfe282ce578149be1f24f5bb6d3708a97251bbc0856efe2a2c5a15675fea46
+size 428

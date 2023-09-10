@@ -1,24 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#import <Foundation/Foundation.h>
-
-#define FBPFTrace(...) /*NSLog(__VA_ARGS__)*/
-#define FBPFLog(...) NSLog(__VA_ARGS__)
-
-enum {
-  FKPortForwardingFrameTypeOpenPipe = 201,
-  FKPortForwardingFrameTypeWriteToPipe = 202,
-  FKPortForwardingFrameTypeClosePipe = 203,
-};
-
-static dispatch_data_t NSDataToGCDData(NSData* data) {
-  __block NSData* retainedData = data;
-  return dispatch_data_create(data.bytes, data.length, nil, ^{
-    retainedData = nil;
-  });
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:3091f5b8688608ea6915d8aef0758f80acf05f89dbcf5ee9f079f60a9395661d
+size 644

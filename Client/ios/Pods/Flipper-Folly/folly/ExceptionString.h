@@ -1,33 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-#pragma once
-
-#include <exception>
-
-#include <folly/FBString.h>
-
-namespace folly {
-
-/**
- * Debug string for an exception: include type and what(), if
- * defined.
- */
-fbstring exceptionStr(std::exception const& e);
-
-fbstring exceptionStr(std::exception_ptr const& ep);
-
-} // namespace folly
+version https://git-lfs.github.com/spec/v1
+oid sha256:7482f3c0aa04990d8e14c0368613527db2b241edc7c23bc52f6067f271e3d3bb
+size 908

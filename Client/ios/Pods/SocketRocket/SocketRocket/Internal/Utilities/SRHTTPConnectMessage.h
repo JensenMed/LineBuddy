@@ -1,20 +1,3 @@
-//
-// Copyright (c) 2016-present, Facebook, Inc.
-// All rights reserved.
-//
-// This source code is licensed under the BSD-style license found in the
-// LICENSE file in the root directory of this source tree. An additional grant
-// of patent rights can be found in the PATENTS file in the same directory.
-//
-
-#import <Foundation/Foundation.h>
-
-NS_ASSUME_NONNULL_BEGIN
-
-extern CFHTTPMessageRef SRHTTPConnectMessageCreate(NSURLRequest *request,
-                                                   NSString *securityKey,
-                                                   uint8_t webSocketProtocolVersion,
-                                                   NSArray<NSHTTPCookie *> *_Nullable cookies,
-                                                   NSArray<NSString *> *_Nullable requestedProtocols);
-
-NS_ASSUME_NONNULL_END
+version https://git-lfs.github.com/spec/v1
+oid sha256:78558d4e853ea7471f711038fb7ff4995304fb6101d3412918c64f69be6fdce7
+size 822

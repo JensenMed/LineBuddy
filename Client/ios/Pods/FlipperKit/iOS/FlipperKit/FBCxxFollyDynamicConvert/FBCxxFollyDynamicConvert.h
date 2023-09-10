@@ -1,21 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#pragma once
-
-#import <Foundation/Foundation.h>
-
-#include <folly/dynamic.h>
-
-namespace facebook {
-namespace cxxutils {
-
-folly::dynamic convertIdToFollyDynamic(id json, bool nullifyNanAndInf = false);
-id convertFollyDynamicToId(const folly::dynamic& dyn);
-
-} // namespace cxxutils
-} // namespace facebook
+version https://git-lfs.github.com/spec/v1
+oid sha256:0940bba6554dce47f1f0ac9c4c7c131823db1900ebbb18a93bae9860d4fbb2f9
+size 493

@@ -1,31 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#if FB_SONARKIT_ENABLED
-
-#import "FlipperKitReactPlugin.h"
-
-#import <FlipperKit/FlipperClient.h>
-#import <FlipperKit/FlipperConnection.h>
-#import <FlipperKit/FlipperResponder.h>
-
-// This class is no longer needed, but kept here for backward compatibility
-@implementation FlipperKitReactPlugin
-
-- (NSString*)identifier {
-  return @"React";
-}
-
-- (void)didConnect:(id<FlipperConnection>)connection {
-}
-
-- (void)didDisconnect {
-}
-
-@end
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:1f3de1de420ee4ecac78b4855b3c3a5aa70aeb030eef12d11ee7fe88c98dd28e
+size 629

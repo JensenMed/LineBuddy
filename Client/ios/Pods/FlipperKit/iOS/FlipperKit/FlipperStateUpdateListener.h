@@ -1,14 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#ifdef FB_SONARKIT_ENABLED
-
-@protocol FlipperStateUpdateListener
-- (void)onUpdate;
-@end
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:2b5a7db8d1b21ce8b7c85f29c506450dc6c99f4011c33cdd735a82477f014887
+size 285

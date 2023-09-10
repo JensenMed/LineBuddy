@@ -1,22 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#import <UIKit/UIKit.h>
-
-typedef void (^SKTapReceiver)(CGPoint touchPoint);
-
-@protocol SKTapListener
-
-@property(nonatomic, readonly) BOOL isMounted;
-
-- (void)mountWithFrame:(CGRect)frame;
-
-- (void)unmount;
-
-- (void)listenForTapWithBlock:(SKTapReceiver)receiver;
-
-@end
+version https://git-lfs.github.com/spec/v1
+oid sha256:6efb5fd81f20e7e3fd0542aab8055cbde115d5ba0e034443bbc76668f227de9c
+size 457

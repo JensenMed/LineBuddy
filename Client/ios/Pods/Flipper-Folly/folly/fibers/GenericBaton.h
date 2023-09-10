@@ -1,28 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-#pragma once
-
-#include <folly/synchronization/Baton.h>
-
-#include <folly/fibers/Baton.h>
-
-namespace folly {
-namespace fibers {
-
-typedef Baton GenericBaton;
-} // namespace fibers
-} // namespace folly
+version https://git-lfs.github.com/spec/v1
+oid sha256:e9dc4fcca2e159b07cafe73c5ee61c3dc7a38e6479c648fc7bb76d3263c5c854
+size 816

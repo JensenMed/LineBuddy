@@ -1,20 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#if FB_SONARKIT_ENABLED
-
-#import <UIKit/UIKit.h>
-
-#import <FlipperKitLayoutHelpers/SKNodeDescriptor.h>
-
-@class SKDescriptorMapper;
-
-@interface SKViewDescriptor : SKNodeDescriptor<UIView*>
-
-@end
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:abd1d11ec6504b02c8eced84f54e2d99ebdcd3fe0f7d51cee0907d2e5b6f249b
+size 391

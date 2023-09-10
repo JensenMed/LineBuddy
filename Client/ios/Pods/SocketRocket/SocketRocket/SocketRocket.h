@@ -1,15 +1,3 @@
-//
-// Copyright 2012 Square Inc.
-// Portions Copyright (c) 2016-present, Facebook, Inc.
-//
-// All rights reserved.
-//
-// This source code is licensed under the BSD-style license found in the
-// LICENSE file in the root directory of this source tree. An additional grant
-// of patent rights can be found in the PATENTS file in the same directory.
-//
-
-#import <SocketRocket/NSRunLoop+SRWebSocket.h>
-#import <SocketRocket/NSURLRequest+SRWebSocket.h>
-#import <SocketRocket/SRSecurityPolicy.h>
-#import <SocketRocket/SRWebSocket.h>
+version https://git-lfs.github.com/spec/v1
+oid sha256:7b2cdbb05bb5f54b8febd7f84987e44c561949f1d1365f343c80796fe3d00086
+size 526

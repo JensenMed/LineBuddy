@@ -1,15 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#import <FlipperKit/SKMacros.h>
-
-FB_LINK_REQUIRE_CATEGORY(UIView_SKInvalidation)
-@interface UIView (SKInvalidation)
-
-+ (void)enableInvalidation;
-
-@end
+version https://git-lfs.github.com/spec/v1
+oid sha256:af6110b4539697ce8dee241ac5caa277fa0d9bf9e921fb6bce42c6e923b089b9
+size 340

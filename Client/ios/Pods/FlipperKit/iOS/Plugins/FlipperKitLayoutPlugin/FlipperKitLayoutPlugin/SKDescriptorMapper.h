@@ -1,22 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#import <FlipperKitLayoutHelpers/FlipperKitLayoutDescriptorMapperProtocol.h>
-#import <FlipperKitLayoutHelpers/SKNodeDescriptor.h>
-#import <Foundation/Foundation.h>
-
-@interface SKDescriptorMapper : NSObject<SKDescriptorMapperProtocol>
-
-- (instancetype)initWithDefaults;
-
-- (SKNodeDescriptor*)descriptorForClass:(Class)cls;
-
-- (void)registerDescriptor:(SKNodeDescriptor*)descriptor forClass:(Class)cls;
-
-- (NSArray<SKNodeDescriptor*>*)allDescriptors;
-
-@end
+version https://git-lfs.github.com/spec/v1
+oid sha256:d15b19ca2f5e64e63213ca9513244601b73304228bf2c6b120418dc4f64b7753
+size 644

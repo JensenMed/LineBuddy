@@ -1,28 +1,3 @@
-/*
-            Copyright Sergue E. Leontiev 2013.
-   Distributed under the Boost Software License, Version 1.0.
-      (See accompanying file LICENSE_1_0.txt or copy at
-          http://www.boost.org/LICENSE_1_0.txt)
-*/
-
-// Stub file for universal binary
-
-#if defined(__arm__) || defined(__aarch64__) || defined(_M_ARM)
-    #if defined(__aarch64__)
-        #include "make_arm64_aapcs_macho_gas.S"
-    #else
-        #include "make_arm_aapcs_macho_gas.S"
-    #endif
-#else
-    #if defined(__i386__)
-        #include "make_i386_sysv_macho_gas.S"
-    #elif defined(__x86_64__)
-        #include "make_x86_64_sysv_macho_gas.S"
-    #elif defined(__ppc__)
-        #include "make_ppc32_sysv_macho_gas.S"
-    #elif defined(__ppc64__)
-        #include "make_ppc64_sysv_macho_gas.S"
-    #else
-        #error "No arch's"
-    #endif
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:07760825ac4155ff56ed3e48ada23ef17a670bdc4eb8660c587e7800a7ebd0e7
+size 824

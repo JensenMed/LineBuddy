@@ -1,19 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#import <Foundation/Foundation.h>
-
-/*
- A hash function is needed in order to use NSObject classes
- as keys in C++ STL
- */
-class SKObjectHash {
- public:
-  size_t operator()(const NSObject* x) const {
-    return (size_t)[x hash];
-  }
-};
+version https://git-lfs.github.com/spec/v1
+oid sha256:b438e8a1a0d9c6271e6273d59978e20ff2e04ffe9e84e84bb3fd4f0cb9cee9f7
+size 424

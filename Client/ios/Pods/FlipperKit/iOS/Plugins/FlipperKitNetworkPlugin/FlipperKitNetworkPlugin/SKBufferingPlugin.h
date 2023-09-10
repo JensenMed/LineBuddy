@@ -1,23 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#if FB_SONARKIT_ENABLED
-
-#import <Foundation/Foundation.h>
-
-#import <FlipperKit/FlipperPlugin.h>
-
-@interface SKBufferingPlugin : NSObject<FlipperPlugin>
-
-- (instancetype)initWithQueue:(dispatch_queue_t)queue;
-
-- (void)send:(NSString*)method
-    sonarObject:(NSDictionary<NSString*, id>*)sonarObject;
-
-@end
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:7abf4a2f9c5026268e487865a2ec069aeb7faa4f9155578c133e0a2df339726b
+size 503

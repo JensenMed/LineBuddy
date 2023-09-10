@@ -1,19 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#import <Flipper/FlipperConnection.h>
-#import <FlipperKit/FlipperConnection.h>
-
-/**
-FlipperCppBridgingConnection is a simple ObjC wrapper around SonarConnection
-that forwards messages to the underlying C++ connection. This class allows
-pure Objective-C plugins to send messages to the underlying connection.
-*/
-@interface FlipperCppBridgingConnection : NSObject<FlipperConnection>
-- (instancetype)initWithCppConnection:
-    (std::shared_ptr<facebook::flipper::FlipperConnection>)conn;
-@end
+version https://git-lfs.github.com/spec/v1
+oid sha256:d4a97350a3fb36e64a1f04ec33e423114f026c7d59dd2cc0f5c4ca58075f69c1
+size 679

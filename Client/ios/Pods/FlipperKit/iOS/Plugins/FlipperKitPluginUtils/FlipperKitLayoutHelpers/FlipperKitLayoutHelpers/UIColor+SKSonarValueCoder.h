@@ -1,17 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#import <UIKit/UIKit.h>
-
-#import <FlipperKit/SKMacros.h>
-
-#import "SKObject.h"
-
-FB_LINK_REQUIRE_CATEGORY(UIColor_SonarValueCoder)
-@interface UIColor (SonarValueCoder)<SKSonarValueCoder>
-
-@end
+version https://git-lfs.github.com/spec/v1
+oid sha256:0cf5f340262062aebb26e02abd588a037144c40837272833ab4466f4931967c8
+size 381

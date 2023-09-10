@@ -1,14 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#pragma once
-
-class FlipperStateUpdateListener {
- public:
-  virtual ~FlipperStateUpdateListener() = default;
-  virtual void onUpdate() = 0;
-};
+version https://git-lfs.github.com/spec/v1
+oid sha256:c74f54f4ac31b4cdf6ee92a4c9c904e9e34328b731118d743ceddb3631212aa6
+size 332

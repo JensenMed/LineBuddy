@@ -1,16 +1,3 @@
-//
-// Copyright (c) 2016-present, Facebook, Inc.
-// All rights reserved.
-//
-// This source code is licensed under the BSD-style license found in the
-// LICENSE file in the root directory of this source tree. An additional grant
-// of patent rights can be found in the PATENTS file in the same directory.
-//
-
-#import <Foundation/Foundation.h>
-
-NS_ASSUME_NONNULL_BEGIN
-
-extern NSData *SRRandomData(NSUInteger length);
-
-NS_ASSUME_NONNULL_END
+version https://git-lfs.github.com/spec/v1
+oid sha256:51cac5ccd53218f0b2f5487af2ee8723a00aafb732109f8ca4366d1fb89b84a1
+size 439

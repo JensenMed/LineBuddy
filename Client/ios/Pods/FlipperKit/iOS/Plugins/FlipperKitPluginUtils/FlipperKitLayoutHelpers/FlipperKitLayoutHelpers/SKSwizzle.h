@@ -1,10 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#import <Foundation/Foundation.h>
-
-void swizzleMethods(Class cls, SEL original, SEL swissled);
+version https://git-lfs.github.com/spec/v1
+oid sha256:c6cedccaabd2a1d3c100848ce886afa9a27f868cf37adb6bbba7bc7d0acf9d24
+size 284

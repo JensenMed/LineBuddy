@@ -1,25 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#ifndef SKSearchResultNode_h
-#define SKSearchResultNode_h
-
-#import <Foundation/Foundation.h>
-
-@interface SKSearchResultNode : NSObject
-
-@property(nonatomic, copy, readonly) NSString* nodeId;
-
-- (instancetype)initWithNode:(NSString*)nodeId
-                     asMatch:(BOOL)isMatch
-                 withElement:(NSDictionary*)element
-                 andChildren:(NSArray<SKSearchResultNode*>*)children;
-
-- (NSDictionary*)toNSDictionary;
-
-@end
-#endif /* SKSearchResultNode_h */
+version https://git-lfs.github.com/spec/v1
+oid sha256:38b49e2ebdd8a982ad4a71a089f41647581d5d2c5d3af7dac4a2b88e5f4de70d
+size 667

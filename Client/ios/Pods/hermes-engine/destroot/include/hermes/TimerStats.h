@@ -1,23 +1,3 @@
-/*
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#pragma once
-
-#include <jsi/jsi.h>
-
-#include <memory>
-
-namespace facebook {
-namespace hermes {
-
-/// Creates and returns a Runtime that computes the time spent in invocations to
-/// the Hermes VM.
-std::unique_ptr<jsi::Runtime> makeTimedRuntime(
-    std::unique_ptr<jsi::Runtime> hermesRuntime);
-
-} // namespace hermes
-} // namespace facebook
+version https://git-lfs.github.com/spec/v1
+oid sha256:8f83ea981ba0f47f70c0bad6f0036a8af090f1a862f0a7239e5fcdd0bbffd0bc
+size 532

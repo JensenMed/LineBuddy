@@ -1,32 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#if FB_SONARKIT_ENABLED
-#pragma once
-
-#import <iostream>
-#import <memory>
-#import "SKBufferingPlugin.h"
-#import "SKDispatchQueue.h"
-
-struct CachedEvent {
-  NSString* method;
-  NSDictionary<NSString*, id>* sonarObject;
-};
-
-@interface SKBufferingPlugin (CPPInitialization)
-
-- (instancetype)initWithVectorEventSize:(NSUInteger)size
-                  connectionAccessQueue:
-                      (std::shared_ptr<facebook::flipper::DispatchQueue>)
-                          connectionAccessQueue;
-- (instancetype)initWithDispatchQueue:
-    (std::shared_ptr<facebook::flipper::DispatchQueue>)queue;
-
-@end
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:842ef6d9d8fc02a8d21f86903ce1ae0f7ce3cb6ac2bcbb73d45ca636a7a9bc6f
+size 797

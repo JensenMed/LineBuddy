@@ -1,18 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#import <Foundation/Foundation.h>
-
-@interface FKPortForwardingServer : NSObject
-
-- (instancetype)init;
-
-- (void)listenForMultiplexingChannelOnPort:(NSUInteger)port;
-- (void)forwardConnectionsFromPort:(NSUInteger)port;
-- (void)close;
-
-@end
+version https://git-lfs.github.com/spec/v1
+oid sha256:053c51f45641189e54ccf76896dfade087cbf856adf33c85a7a263781bdb5e2b
+size 428

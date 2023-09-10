@@ -1,19 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#if FB_SONARKIT_ENABLED
-
-#import <FlipperKitNetworkPlugin/SKNetworkReporter.h>
-#import <Foundation/Foundation.h>
-
-@interface SKIOSNetworkAdapter : NSObject<SKNetworkAdapterDelegate>
-- (instancetype)init NS_DESIGNATED_INITIALIZER;
-@property(weak, nonatomic) id<SKNetworkReporterDelegate> delegate;
-
-@end
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:3efd87690995e27438e8830d9f0fd09cd3d3ec032c65dce5ffa304a22d2758f9
+size 500

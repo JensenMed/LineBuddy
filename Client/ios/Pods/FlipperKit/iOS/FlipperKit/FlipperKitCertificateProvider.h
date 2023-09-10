@@ -1,33 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#ifdef FB_SONARKIT_ENABLED
-
-#import <Flipper/FlipperCertificateExchangeMedium.h>
-
-typedef enum FlipperCertificateExchangeMedium
-    FlipperKitCertificateExchangeMedium;
-/**
-Represents a CPP Certificate Provider to be used by FlipperClient
-*/
-@protocol FlipperKitCertificateProvider<NSObject>
-
-- (_Nonnull instancetype)initCPPCertificateProvider;
-
-- (void* _Nonnull)
-    getCPPCertificateProvider; // Returning it as void* as the file needs to
-                               // have no cpp for it to be compatible with
-                               // Swift. The pointer returned should point to
-                               // std::shared_ptr<FlipperCertificateProvider>
-- (void)setCertificateExchangeMedium:
-    (FlipperKitCertificateExchangeMedium)medium;
-
-@optional
-- (void)setAuthToken:(nullable NSString*)authToken;
-@end
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:b2b6fef84c3569507717cef6860af0a77947a8c6ed58adf8b9d96580636b1df3
+size 1026

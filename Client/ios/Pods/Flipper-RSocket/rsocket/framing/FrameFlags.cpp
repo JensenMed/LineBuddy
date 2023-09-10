@@ -1,25 +1,3 @@
-// Copyright (c) Facebook, Inc. and its affiliates.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-#include "rsocket/framing/FrameFlags.h"
-
-#include <bitset>
-#include <ostream>
-
-namespace rsocket {
-
-std::ostream& operator<<(std::ostream& os, FrameFlags flags) {
-  return os << std::bitset<16>{raw(flags)};
-}
-} // namespace rsocket
+version https://git-lfs.github.com/spec/v1
+oid sha256:2d86cd47295c7be735504df7b0bc79b6e5a12700459dd589b8c9abc199f60e90
+size 843

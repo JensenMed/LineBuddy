@@ -1,26 +1,3 @@
-//
-// Copyright (c) 2016-present, Facebook, Inc.
-// All rights reserved.
-//
-// This source code is licensed under the BSD-style license found in the
-// LICENSE file in the root directory of this source tree. An additional grant
-// of patent rights can be found in the PATENTS file in the same directory.
-//
-
-#import <Foundation/Foundation.h>
-
-NS_ASSUME_NONNULL_BEGIN
-
-typedef void(^SRProxyConnectCompletion)(NSError *_Nullable error,
-                                        NSInputStream *_Nullable readStream,
-                                        NSOutputStream *_Nullable writeStream);
-
-@interface SRProxyConnect : NSObject
-
-- (instancetype)initWithURL:(NSURL *)url;
-
-- (void)openNetworkStreamWithCompletion:(SRProxyConnectCompletion)completion;
-
-@end
-
-NS_ASSUME_NONNULL_END
+version https://git-lfs.github.com/spec/v1
+oid sha256:3dae008a1e6be4200f2db2d6bde65d52e5e7635b80d47d661da4d107e097790f
+size 780

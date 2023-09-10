@@ -1,18 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#import <UIKit/UIKit.h>
-
-@interface SKHighlightOverlay : NSObject
-
-+ (instancetype)sharedInstance;
-+ (UIColor*)overlayColor;
-
-- (void)mountInView:(UIView*)view withFrame:(CGRect)frame;
-- (void)unmount;
-
-@end
+version https://git-lfs.github.com/spec/v1
+oid sha256:a77be63b15bfb3c4ed91f55fce1344675b28206fdd47cd2151d5c375f1ee7479
+size 397

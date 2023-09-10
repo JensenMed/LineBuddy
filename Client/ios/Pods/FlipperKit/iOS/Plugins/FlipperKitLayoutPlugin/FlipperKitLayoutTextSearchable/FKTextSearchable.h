@@ -1,14 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#import <UIKit/UIKit.h>
-
-@protocol FKTextSearchable<NSObject>
-
-- (NSString*)searchableText;
-
-@end
+version https://git-lfs.github.com/spec/v1
+oid sha256:f232d35adc267d2ab5004f333645b4c5327930d9ea1b22d02595400744f3c74d
+size 287

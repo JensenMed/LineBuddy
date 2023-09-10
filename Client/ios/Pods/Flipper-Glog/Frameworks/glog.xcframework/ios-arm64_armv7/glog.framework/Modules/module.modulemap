@@ -1,6 +1,3 @@
-framework module glog {
-  umbrella header "Glog.h"
-
-  export *
-  module * { export * }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:d7e189d36a6ff297293db9d2c877e0a38042c0d813d87ca0b4b6256f5598e8a3
+size 89

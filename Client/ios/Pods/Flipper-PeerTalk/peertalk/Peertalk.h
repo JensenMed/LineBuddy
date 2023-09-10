@@ -1,22 +1,3 @@
-//
-//  Peertalk.h
-//  Peertalk
-//
-//  Created by Marek Cirkos on 12/04/2016.
-//
-//
-
-#import <Foundation/Foundation.h>
-
-//! Project version number for Peertalk.
-FOUNDATION_EXPORT double PeertalkVersionNumber;
-
-//! Project version string for Peertalk.
-FOUNDATION_EXPORT const unsigned char PeertalkVersionString[];
-
-// In this header, you should import all the public headers of your framework using statements like #import <Peertalk/PublicHeader.h>
-
-
-#import <Peertalk/PTChannel.h>
-#import <Peertalk/PTProtocol.h>
-#import <Peertalk/PTUSBHub.h>
+version https://git-lfs.github.com/spec/v1
+oid sha256:2c5f4d84e667f4ec7397dca86c76792b785682b45f7d716bcf442365ad461ab7
+size 543

@@ -1,30 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#import <UIKit/UIKit.h>
-#import "FlipperKitLayoutDescriptorMapperProtocol.h"
-
-typedef void (^SKTouchFinishDelegate)(id<NSObject> currentNode);
-typedef void (^SKProcessFinishDelegate)(NSDictionary* tree);
-
-@interface SKTouch : NSObject
-
-- (instancetype)initWithTouchPoint:(CGPoint)touchPoint
-                      withRootNode:(id<NSObject>)node
-              withDescriptorMapper:(id<SKDescriptorMapperProtocol>)mapper
-                   finishWithBlock:(SKTouchFinishDelegate)d;
-
-- (void)continueWithChildIndex:(NSUInteger)childIndex
-                    withOffset:(CGPoint)offset;
-
-- (void)finish;
-
-- (void)retrieveSelectTree:(SKProcessFinishDelegate)callback;
-
-- (BOOL)containedIn:(CGRect)bounds;
-
-@end
+version https://git-lfs.github.com/spec/v1
+oid sha256:44171fcd82c7effe63bd078c7c7dae89ea977c26d6c6d82494807bea3329793b
+size 895

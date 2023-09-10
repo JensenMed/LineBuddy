@@ -1,17 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#import <UIKit/UIKit.h>
-
-#import <FlipperKitLayoutHelpers/SKNodeDescriptor.h>
-
-@class UIButton;
-@class SKDescriptorMapper;
-
-@interface SKButtonDescriptor : SKNodeDescriptor<UIButton*>
-
-@end
+version https://git-lfs.github.com/spec/v1
+oid sha256:cbd4209c460dff72815c683d65e3c881962ac84ea262eee7eb016333b896f87d
+size 379

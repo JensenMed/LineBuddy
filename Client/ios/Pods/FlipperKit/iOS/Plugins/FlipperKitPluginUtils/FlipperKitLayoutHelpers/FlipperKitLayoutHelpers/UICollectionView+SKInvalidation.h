@@ -1,17 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#import <UIKit/UIKit.h>
-
-#import <FlipperKit/SKMacros.h>
-
-FB_LINK_REQUIRE_CATEGORY(UICollectionView_SKInvalidation)
-@interface UICollectionView (SKInvalidation)
-
-+ (void)enableInvalidations;
-
-@end
+version https://git-lfs.github.com/spec/v1
+oid sha256:33dac5841c41d58214485c3b312690913a872be0ba1b8cf4b2e5ba63bcaec436
+size 386

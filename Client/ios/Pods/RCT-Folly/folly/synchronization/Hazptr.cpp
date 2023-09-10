@@ -1,32 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-#include <folly/synchronization/Hazptr.h>
-
-#include <atomic>
-
-#include <folly/portability/GFlags.h>
-
-DEFINE_bool(
-    folly_hazptr_use_executor,
-    true,
-    "Use an executor for hazptr asynchronous reclamation");
-
-namespace folly {
-
-FOLLY_STATIC_CTOR_PRIORITY_MAX hazptr_domain<std::atomic> default_domain;
-
-} // namespace folly
+version https://git-lfs.github.com/spec/v1
+oid sha256:a133749af5c5a1acfbede36c79864e3bf3112b6d12f13c179c87da13ab465c89
+size 949

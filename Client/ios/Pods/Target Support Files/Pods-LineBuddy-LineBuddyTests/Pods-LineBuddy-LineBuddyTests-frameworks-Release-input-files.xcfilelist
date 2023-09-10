@@ -1,2 +1,3 @@
-${PODS_ROOT}/Target Support Files/Pods-LineBuddy-LineBuddyTests/Pods-LineBuddy-LineBuddyTests-frameworks.sh
-${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes
+version https://git-lfs.github.com/spec/v1
+oid sha256:ddee342e1ab6903d371d68911649420a0619d5e6338dcfe686413f1531db5133
+size 107

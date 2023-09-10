@@ -1,18 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#if FB_SONARKIT_ENABLED
-
-#import <Foundation/Foundation.h>
-
-#import <FlipperKit/FlipperPlugin.h>
-
-@interface FlipperKitReactPlugin : NSObject<FlipperPlugin>
-
-@end
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:f1319fb65e8f8f899066073e0a937b3bb7fea9d5eeeb5f95aaf007245c38a1a7
+size 360

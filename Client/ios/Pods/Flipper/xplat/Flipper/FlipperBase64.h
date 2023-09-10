@@ -1,21 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#pragma once
-
-#include <string>
-
-namespace facebook {
-namespace flipper {
-
-class Base64 {
- public:
-  static std::string encode(const std::string& input);
-};
-
-} // namespace flipper
-} // namespace facebook
+version https://git-lfs.github.com/spec/v1
+oid sha256:0404131903ccded7416829e8f72715b447652be6b072203f54fa6d978a7f82e3
+size 394

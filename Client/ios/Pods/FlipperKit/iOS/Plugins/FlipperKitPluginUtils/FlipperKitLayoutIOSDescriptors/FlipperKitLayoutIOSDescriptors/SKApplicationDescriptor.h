@@ -1,16 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#import <UIKit/UIKit.h>
-
-#import <FlipperKitLayoutHelpers/SKNodeDescriptor.h>
-
-@class SKDescriptorMapper;
-
-@interface SKApplicationDescriptor : SKNodeDescriptor<UIApplication*>
-
-@end
+version https://git-lfs.github.com/spec/v1
+oid sha256:de39cbd9017bbda6aef526479b28d8d935a4264525d41ab7678c35747e2b5bf1
+size 372

@@ -1,16 +1,3 @@
-/*
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-#import <UIKit/UIKit.h>
-
-#import <FlipperKitLayoutHelpers/SKNodeDescriptor.h>
-
-@class SKDescriptorMapper;
-
-@interface SKScrollViewDescriptor : SKNodeDescriptor<UIScrollView*>
-
-@end
+version https://git-lfs.github.com/spec/v1
+oid sha256:56326b575d463913da608108d576d33b77540e00e4df55e7714482186542564f
+size 370

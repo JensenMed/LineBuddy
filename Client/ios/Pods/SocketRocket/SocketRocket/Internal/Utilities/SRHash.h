@@ -1,19 +1,3 @@
-//
-// Copyright (c) 2016-present, Facebook, Inc.
-// All rights reserved.
-//
-// This source code is licensed under the BSD-style license found in the
-// LICENSE file in the root directory of this source tree. An additional grant
-// of patent rights can be found in the PATENTS file in the same directory.
-//
-
-#import <Foundation/Foundation.h>
-
-NS_ASSUME_NONNULL_BEGIN
-
-extern NSData *SRSHA1HashFromString(NSString *string);
-extern NSData *SRSHA1HashFromBytes(const char *bytes, size_t length);
-
-extern NSString *SRBase64EncodedStringFromData(NSData *data);
-
-NS_ASSUME_NONNULL_END
+version https://git-lfs.github.com/spec/v1
+oid sha256:0134655b1490c028c10b5ffeff90cc2f53a372d131d5d87cf33c8d49e3c65cee
+size 579
