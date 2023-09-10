@@ -1,2 +1,5 @@
+version https://git-lfs.github.com/spec/v1
+oid sha256:53b1d75d57f9ee87cd7b8cbf52c67e71298f81d4269a1661e637dfd2dee9bd83
+size 565
 *.hermes filter=lfs diff=lfs merge=lfs -text
 hermes filter=lfs diff=lfs merge=lfs -text
