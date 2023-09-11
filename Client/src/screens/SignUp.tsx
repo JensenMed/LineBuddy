@@ -15,7 +15,7 @@ type Props = {
 const SignUp = () => {
   // use own adrress not adress if emulator settings-> wifi 
   // const dbUrl = 'http://192.168.86.38:3000'
-  const dbUrl = 'https://b989-2607-fea8-2b83-b500-b9e8-6c45-ea2f-a66.ngrok-free.app'
+  const dbUrl = 'https://1fdb-2607-fea8-2b83-b500-49f7-ef56-699-56f8.ngrok-free.app'
   // Sets user password
   const[password, setPassword] = useState();
   const[isAdmin, setIsAdmin] = useState(false);
