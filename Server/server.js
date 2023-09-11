@@ -190,6 +190,41 @@ const addUserToDB = async (dataVals) => {
     console.log(err)
   }
 }
+
+/**
+ * 
+ * @param {*User passoword passed in to test} passwordVal 
+ * @param {* Email value passed in by user} emailVal 
+ * @returns 
+ */
+const checkUser = async (passwordVal, emailVal) => {
+    let checkUserCursor = await connectToUserDB();
+    let ArrVals = []
+    let cursor = checkUserCursor.find({email: emailVal})
+
+    let vals = await cursor.forEach(val => {
+      // console.log(val)
+      ArrVals.push(val)
+    });
+    // console.log(ArrVals)
+
+    if(ArrVals.length > 1){
+      // There was an error adding the user to the database
+      userChecked = false;
+      return false 
+      
+    }else{
+      //Now check to make sure the passwords are the same
+      if(ArrVals[0].password == passwordVal){
+        //User entered correct password
+        return true 
+      }else{
+        //User found just wrong password
+        return false 
+      }
+    }
+
+}
 // findName().catch(console.dir);
 
 // async function connect(){
@@ -213,6 +248,7 @@ app.get("/api/:email", async (req, res) => {
   // console.log(req.params.email)
   // try{
     let isFound = await findName(req.params.email).catch(console.dir);
+    // console.log(isFound)
     res.send(isFound)
 
   // }catch(err){
@@ -237,8 +273,9 @@ app.get("/api/:email", async (req, res) => {
  * Check if email and passoword are good
  */
 app.post('/verifyUser', async (req, res) => {
-
-  console.log(req.body)
+  // Will check user and make sire the password is correct
+  let userIsValid = await checkUser(req.body.data.password, req.body.data.email).catch(console.dir)
+  res.send(userIsValid)
 
 })
 

@@ -19,7 +19,7 @@ const LogIn = () => {
   const navigation = useNavigation<Props>();
   const[email, setEmail] = useState('');
   const[password, setPassword] = useState('');
-  const dbUrl = 'https://1fdb-2607-fea8-2b83-b500-49f7-ef56-699-56f8.ngrok-free.app'
+  const dbUrl = 'https://f1c2-2607-fea8-2b83-b500-350e-7f34-7ac-86ff.ngrok-free.app'
 
 
   const handleLogin = async (emailVal, passwordVal) => {
@@ -39,7 +39,16 @@ const LogIn = () => {
             // Now were going to check the password
             const userData = {email:emailValFormatted, password: passwordValFormatted}
             const checkUserPassword = await axios.post(dbUrl + '/verifyUser', {data: userData})
+            
+            if(checkUserPassword.data == true){
+              //User has been validated now go to the search screen
+              navigation.navigate('Search')
+            }
+            if(checkUserPassword.data == false){
+              //User may have entered the wrong password or it just doesnt work
+              Alert.alert('Attention!', 'The user could not be signed in at the moment. Please make sure your password is correct or try again later.')
 
+            }
 
 
           }else{
