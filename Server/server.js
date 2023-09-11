@@ -6,7 +6,6 @@ const mongoose = require('mongoose')
 const { MongoClient } = require("mongodb");
 // const { MongoClient } = require("mongodb");
 // const {connectToDb, getDb} = require('./db')
-const uri = 'mongodb+srv://jensenMed:J01fTAXKB49h95Um@linebuddyc.jsskrd3.mongodb.net/?retryWrites=true&w=majority'
 // mongoose.connect(uri, {
 //     useNewUrlParser: true,useUnifiedTopology: true,
 // }, (err) => {
