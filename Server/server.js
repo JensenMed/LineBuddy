@@ -215,13 +215,14 @@ const checkUser = async (passwordVal, emailVal) => {
       
     }else{
       //Now check to make sure the passwords are the same
-      if(ArrVals[0].password == passwordVal){
-        //User entered correct password
-        return true 
-      }else{
-        //User found just wrong password
-        return false 
-      }
+      return ArrVals[0]
+      // if(ArrVals[0].password == passwordVal){
+      //   //User entered correct password
+      //   return true 
+      // }else{
+      //   //User found just wrong password
+      //   return false 
+      // }
     }
 
 }

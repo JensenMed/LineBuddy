@@ -33,7 +33,7 @@ const Search = ({route}) => {
   const longitude = -122.431297;
   let radius = 50000;
   const navigation = useNavigation<Props>();
-  const {isAdminValue} = route.params
+  const {firstname, lastname, email, password, isAdminValue} = route.params
 
 
   // const url =
@@ -158,7 +158,10 @@ const Search = ({route}) => {
       try {
         let a = 0;
         let res = await axios.get(url);
-        let nextPageUrl = res.data.serpapi_pagination.next + '&api_key=0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7';
+        let nextPageUrl;
+        if(res.data.serpapi_pagination.next != undefined){
+          nextPageUrl = res.data.serpapi_pagination.next + '&api_key=0392bce78e57034b952f3a6794f83f78e5b0b38a9feabafa226bebd72f275fb7';
+        } 
 
         // Checks if there is a next page token
         if (nextPageUrl !== undefined) {

@@ -19,7 +19,7 @@ const LogIn = () => {
   const navigation = useNavigation<Props>();
   const[email, setEmail] = useState('');
   const[password, setPassword] = useState('');
-  const dbUrl = 'https://f1c2-2607-fea8-2b83-b500-350e-7f34-7ac-86ff.ngrok-free.app'
+  const dbUrl = 'https://dd7e-99-242-223-162.ngrok-free.app'
 
 
   const handleLogin = async (emailVal, passwordVal) => {
@@ -39,16 +39,32 @@ const LogIn = () => {
             // Now were going to check the password
             const userData = {email:emailValFormatted, password: passwordValFormatted}
             const checkUserPassword = await axios.post(dbUrl + '/verifyUser', {data: userData})
-            
-            if(checkUserPassword.data == true){
-              //User has been validated now go to the search screen
-              navigation.navigate('Search')
-            }
-            if(checkUserPassword.data == false){
-              //User may have entered the wrong password or it just doesnt work
-              Alert.alert('Attention!', 'The user could not be signed in at the moment. Please make sure your password is correct or try again later.')
 
+            const dbEmail = checkUserPassword.data.email
+            const dbPassword = checkUserPassword.data.password
+            const dbFirstName = checkUserPassword.data.firstname
+            const dbLastName = checkUserPassword.data.lastname
+            const dbIsAdmin = checkUserPassword.data.isAdmin
+  
+            if(dbPassword== passwordVal){
+              // User was successfully checked and validated with their password
+              navigation.navigate('Search', {firstname:dbFirstName, lastname: dbLastName, email:dbEmail, password:dbPassword, isAdminValue: dbIsAdmin})
+              
+            }else{
+              // The user entered the wrong password
+              Alert.alert('Incorrect password.', 'Please enter the correct password')
             }
+
+            
+            // if(checkUserPassword.data == true){
+            //   //User has been validated now go to the search screen
+            //   navigation.navigate('Search')
+            // }
+            // if(checkUserPassword.data == false){
+            //   //User may have entered the wrong password or it just doesnt work
+            //   Alert.alert('Attention!', 'The user could not be signed in at the moment. Please make sure your password is correct or try again later.')
+
+            // }
 
 
           }else{
